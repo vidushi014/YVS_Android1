@@ -86,6 +86,7 @@
         android:layout_marginTop="28dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
+        android:onClick="open"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

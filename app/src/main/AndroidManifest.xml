@@ -11,7 +11,9 @@
         android:theme="@style/Theme.Voice_notes">
         <activity
             android:name=".RegistrationActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Registration"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
