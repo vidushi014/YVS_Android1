@@ -116,7 +116,7 @@
         android:id="@+id/imageView10"
         android:layout_width="406dp"
         android:layout_height="535dp"
-        android:layout_marginTop="272dp"
+        android:layout_marginTop="196dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
