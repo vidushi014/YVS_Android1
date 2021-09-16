@@ -43,6 +43,7 @@
         android:padding="10dp"
         android:text="Buttons"
         android:textColor="#ffffff"
+        app:backgroundTint="#E91E63"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
