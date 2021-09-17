@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordLable"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintVertical_bias="0.294"
+        tools:ignore="MissingClass" />
 
     <ImageButton
         android:id="@+id/recordBtn"
@@ -31,7 +32,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordLable"
         app:layout_constraintVertical_bias="0.89"
-        app:srcCompat="@drawable/mic" />
+        app:srcCompat="@drawable/mic"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/recordLable"
@@ -76,5 +78,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923"
-        app:srcCompat="@drawable/menu" />
+        app:srcCompat="@drawable/menu"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

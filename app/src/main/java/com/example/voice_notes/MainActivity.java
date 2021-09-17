@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(MainActivity.this, "user Login successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        startActivity(new Intent(MainActivity.this, activity_recording.class));
                     } else {
                         Toast.makeText(MainActivity.this, "Login failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, activity_recording.class);
         startActivity(intent);
-
     }
 
     private void requestGoogleSignIn(){
