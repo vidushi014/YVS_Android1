@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -82,6 +83,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             });
         }
+
+    }
+
+    public void linkToLogin(View v) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
     }
 }
