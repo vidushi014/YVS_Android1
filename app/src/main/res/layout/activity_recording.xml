@@ -8,6 +8,7 @@
     tools:context=".activity_recording">
 
     <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
         android:layout_width="510dp"
         android:layout_height="482dp"
         android:adjustViewBounds="true"
@@ -15,25 +16,11 @@
         android:src="@drawable/sound"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordLable"
-        app:layout_constraintVertical_bias="0.294"
+        app:layout_constraintVertical_bias="0.312"
         tools:ignore="MissingClass" />
-
-    <ImageButton
-        android:id="@+id/recordBtn"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:adjustViewBounds="true"
-        android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordLable"
-        app:layout_constraintVertical_bias="0.89"
-        app:srcCompat="@drawable/mic"
-        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/recordLable"
@@ -63,7 +50,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.899"
-        app:srcCompat="@drawable/save" />
+        app:srcCompat="@drawable/save"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -80,4 +68,15 @@
         app:layout_constraintVertical_bias="0.923"
         app:srcCompat="@drawable/menu"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/recordBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

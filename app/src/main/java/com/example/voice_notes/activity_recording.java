@@ -3,6 +3,7 @@ package com.example.voice_notes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +30,7 @@ public class activity_recording extends AppCompatActivity {
         mRecordBtn=findViewById(R.id.recordBtn);
         fileName= Environment.getExternalStorageDirectory().getAbsolutePath();
         fileName+="/recorded_audio.3gp";
-
+        Intent intent=getIntent();
         mRecordBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
