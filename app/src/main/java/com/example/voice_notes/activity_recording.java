@@ -38,7 +38,7 @@ public class activity_recording extends AppCompatActivity {
                     mRecordLable.setText("Recording Started");
                 }else if (motionEvent.getAction()==MotionEvent.ACTION_UP){
                     stopRecording();
-                    mRecordLable.setText("Recording Stoped");
+                    mRecordLable.setText("Recording Stopped");
                 }
                 return false;
             }
