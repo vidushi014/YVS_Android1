@@ -91,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+    public void linkToRecorder(View v) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, activity_recording.class);
+        startActivity(intent);
+
+    }
 
     private void requestGoogleSignIn(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
