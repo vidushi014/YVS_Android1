@@ -106,7 +106,7 @@
         android:layout_height="60dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
-
+        android:onClick="linkToRecorder"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
