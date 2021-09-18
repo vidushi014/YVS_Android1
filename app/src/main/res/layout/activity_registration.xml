@@ -14,17 +14,19 @@
         android:layout_height="wrap_content"
         android:text="Already a member ?"
         android:textColor="#F5F5F5"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintVertical_bias="0.078" />
 
     <Button
         android:id="@+id/Button2"
         android:layout_width="60sp"
         android:layout_height="41dp"
+        android:layout_marginBottom="15dp"
         android:background="@null"
         android:onClick="linkToLogin"
         android:padding="0sp"
@@ -32,7 +34,7 @@
         android:textAllCaps="false"
         android:textColor="#E91E63"
         android:textColorLink="#E91E63"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:backgroundTint="#010A40"
         app:iconPadding="0dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView7"
@@ -40,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.714" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -48,8 +50,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131"
+        app:layout_constraintVertical_bias="0.172"
         app:srcCompat="@drawable/sounds" />
 
     <ImageView
@@ -61,7 +65,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131"
+        app:layout_constraintVertical_bias="0.172"
         app:srcCompat="@drawable/sounds" />
 
     <ImageView
@@ -69,11 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/Button2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131"
+        app:layout_constraintVertical_bias="0.172"
         app:srcCompat="@drawable/sounds" />
 
     <TextView
@@ -83,12 +87,12 @@
         android:layout_marginTop="28dp"
         android:text="Register for Voice Notes"
         android:textColor="#F5F5F5"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -101,11 +105,12 @@
         android:inputType="textEmailAddress"
         android:textColor="#F5F5F5"
         android:textColorHint="#A3C4C4C4"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.048" />
 
@@ -119,11 +124,12 @@
         android:inputType="textPassword"
         android:textColor="#F5F5F5"
         android:textColorHint="#A3C4C4C4"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress2"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress2"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2"
         app:layout_constraintVertical_bias="0.002" />
 
@@ -137,11 +143,12 @@
         android:inputType="textPassword"
         android:textColor="#F5F5F5"
         android:textColorHint="#A3C4C4C4"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -149,14 +156,15 @@
         android:id="@+id/imageView9"
         android:layout_width="628dp"
         android:layout_height="350dp"
+        android:layout_marginEnd="0sp"
         android:adjustViewBounds="false"
+        android:paddingTop="0sp"
+        android:paddingEnd="0sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/waves"  />
+        app:srcCompat="@drawable/waves" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -166,9 +174,9 @@
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword3"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword3"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3"
         app:layout_constraintVertical_bias="0.136"
         app:srcCompat="@drawable/button" />
