@@ -18,6 +18,8 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -70,9 +72,12 @@ public class activity_recording extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
                     startRecording();
+                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
+                    aniamte();
                     mRecordLable.setText("Recording Started");
                 }else if (motionEvent.getAction()==MotionEvent.ACTION_UP){
                     stopRecording();
+                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
                     mRecordLable.setText("Recording Stopped");
                 }
                 return false;
@@ -124,5 +129,11 @@ public class activity_recording extends AppCompatActivity {
         File file=new File(musicDirectory,"record.mp3");
         Log.i(TAG, "getRecordingFilePath: "+file.getPath());
         return file.getPath();
+    }
+//    Adding animation to button
+    public void aniamte(){
+        mRecordBtn=findViewById(R.id.recordBtn);
+        final Animation animation= AnimationUtils.loadAnimation(this,R.anim.bounce);
+        mRecordBtn.startAnimation(animation);
     }
 }
