@@ -7,14 +7,19 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.Image;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcel;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,12 +28,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class activity_recording extends AppCompatActivity {
     private ImageButton mRecordBtn;
+    private ImageButton mstopbtn;
     private TextView mRecordLable;
     private MediaRecorder recorder;
     private String fileName=null;
@@ -62,47 +72,78 @@ public class activity_recording extends AppCompatActivity {
 //        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         mRecordLable=findViewById(R.id.recordLable);
         mRecordBtn=findViewById(R.id.recordBtn);
+        mstopbtn=findViewById(R.id.imageButton1);
 //        fileName= Environment.getExternalStorageDirectory().getAbsolutePath();
 //        fileName+="/recorded_audio1.3gp";
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
-        mRecordBtn.setOnTouchListener(new View.OnTouchListener() {
+//        mRecordBtn.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+//                    try {
+//                        startRecording();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
+//                    aniamte();
+//                    mRecordLable.setText("Recording Started");
+//                }else if (motionEvent.getAction()==MotionEvent.ACTION_UP){
+//                    stopRecording();
+//                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
+//                    mRecordLable.setText("Recording Stopped");
+//                }
+//                return false;
+//            }
+//        });
+        mRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
+            public void onClick(View view) {
+                try {
                     startRecording();
-                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
-                    aniamte();
-                    mRecordLable.setText("Recording Started");
-                }else if (motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    stopRecording();
-                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
-                    mRecordLable.setText("Recording Stopped");
+                    Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                return false;
+            }
+        });
+        mstopbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
+                stopRecording();
             }
         });
     }
     // START RECORDING CODE
+Uri audiouri;
+    ParcelFileDescriptor file;
+    private void startRecording() throws IOException {
+        ContentValues values = new ContentValues(4);
+        values.put(MediaStore.Audio.Media.TITLE, fileName);
+        values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (System.currentTimeMillis() / 1000));
+        values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3");
+        values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiiii.mp3");
+//        values.put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings/");
 
-    private void startRecording() {
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        recorder.setOutputFile(getRecordingFilePath());
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
+        file = getContentResolver().openFileDescriptor(audiouri, "w");
 
-        try {
+        if (file != null) {
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            recorder.setOutputFile(file.getFileDescriptor());
+            recorder.setAudioChannels(1);
             recorder.prepare();
             recorder.start();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed"+e);
         }
-
-
     }
-// STOP RECORDING CODE
+
+    // STOP RECORDING CODE
     private void stopRecording() {
         recorder.stop();
         recorder.release();
@@ -126,7 +167,10 @@ public class activity_recording extends AppCompatActivity {
     private String getRecordingFilePath(){
         ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
         File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-        File file=new File(musicDirectory,"record.mp3");
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
+        Date now =new Date();
+
+        File file=new File(musicDirectory,"Recording.."+formatter.format(now)+".3gp");
         Log.i(TAG, "getRecordingFilePath: "+file.getPath());
         return file.getPath();
     }
