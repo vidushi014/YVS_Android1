@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -77,31 +78,9 @@ public class activity_recording extends AppCompatActivity {
         mRecordBtn=findViewById(R.id.recordBtn);
         mstopbtn=findViewById(R.id.imageButton1);
         timer=findViewById(R.id.recordtimer);
-//        fileName= Environment.getExternalStorageDirectory().getAbsolutePath();
-//        fileName+="/recorded_audio1.3gp";
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
-//        mRecordBtn.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if (motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-//                    try {
-//                        startRecording();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
-//                    aniamte();
-//                    mRecordLable.setText("Recording Started");
-//                }else if (motionEvent.getAction()==MotionEvent.ACTION_UP){
-//                    stopRecording();
-//                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
-//                    mRecordLable.setText("Recording Stopped");
-//                }
-//                return false;
-//            }
-//        });
         mRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,27 +104,9 @@ public class activity_recording extends AppCompatActivity {
                 }
             }
         });
-//        mRecordBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                try {
-//                    startRecording();
-//                    Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        mstopbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
-//                stopRecording();
-//            }
-//        });
     }
     // START RECORDING CODE
-Uri audiouri;
+    Uri audiouri;
     ParcelFileDescriptor file;
     private void startRecording() throws IOException {
         ContentValues values = new ContentValues(4);
@@ -158,6 +119,8 @@ Uri audiouri;
         audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
         file = getContentResolver().openFileDescriptor(audiouri, "w");
 
+        timer.setBase(SystemClock.elapsedRealtime());
+        timer.start();
         if (file != null) {
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -175,6 +138,7 @@ Uri audiouri;
         recorder.stop();
         recorder.release();
         recorder = null;
+        timer.stop();
     }
     // PRESENCE OF MICROPHONE
     private boolean isMicrophonePresent(){

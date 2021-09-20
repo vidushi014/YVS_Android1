@@ -22,10 +22,11 @@
 
     <TextView
         android:id="@+id/recordLable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="409dp"
+        android:layout_height="43dp"
         android:text="Recording Audio"
         android:textColor="#FFF8F8"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -97,9 +98,10 @@
 
     <Chronometer
         android:id="@+id/recordtimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="72dp"
         android:fontFamily="sans-serif-condensed-light"
+        android:textAlignment="center"
         android:textColor="#FBF8F8"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/recordBtn"
