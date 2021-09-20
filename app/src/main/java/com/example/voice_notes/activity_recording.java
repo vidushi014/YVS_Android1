@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,10 +43,12 @@ public class activity_recording extends AppCompatActivity {
     private TextView mRecordLable;
     private MediaRecorder recorder;
     private String fileName=null;
+    private Chronometer timer;
     private static final String LOG_TAG="Record_log";
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    private boolean isRecording=false;
 
     private static final String TAG = "Activity record";
 //    REQUESTING PERMISSIONS FOR AUDIO AND STORAGE
@@ -73,6 +76,7 @@ public class activity_recording extends AppCompatActivity {
         mRecordLable=findViewById(R.id.recordLable);
         mRecordBtn=findViewById(R.id.recordBtn);
         mstopbtn=findViewById(R.id.imageButton1);
+        timer=findViewById(R.id.recordtimer);
 //        fileName= Environment.getExternalStorageDirectory().getAbsolutePath();
 //        fileName+="/recorded_audio1.3gp";
         if (isMicrophonePresent()){
@@ -101,21 +105,44 @@ public class activity_recording extends AppCompatActivity {
         mRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    startRecording();
+                if(isRecording){
+                    stopRecording();
+                    Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
+                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
+                    mRecordLable.setText("Recording Stopped");
+                    isRecording=false;
+                }else{
+                    try {
+                        startRecording();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
+                    aniamte();
+                    mRecordLable.setText("Recording Started");
                     Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    isRecording=true;
                 }
             }
         });
-        mstopbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
-                stopRecording();
-            }
-        });
+//        mRecordBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    startRecording();
+//                    Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        mstopbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
+//                stopRecording();
+//            }
+//        });
     }
     // START RECORDING CODE
 Uri audiouri;
@@ -125,7 +152,7 @@ Uri audiouri;
         values.put(MediaStore.Audio.Media.TITLE, fileName);
         values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (System.currentTimeMillis() / 1000));
         values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3");
-        values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiiii.mp3");
+        values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiibxd.mp3");
 //        values.put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings/");
 
         audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);

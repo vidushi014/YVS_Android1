@@ -96,6 +96,7 @@
         app:srcCompat="@drawable/watermark" />
 
     <Chronometer
+        android:id="@+id/recordtimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed-light"
