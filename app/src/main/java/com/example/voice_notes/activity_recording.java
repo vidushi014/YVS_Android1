@@ -13,14 +13,17 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,15 +46,15 @@ public class activity_recording extends AppCompatActivity {
     private ImageButton mstopbtn;
     private TextView mRecordLable;
     private MediaRecorder recorder;
-    private String fileName=null;
+    private String filename=null;
     private Chronometer timer;
     private static final String LOG_TAG="Record_log";
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private boolean isRecording=false;
-
     private static final String TAG = "Activity record";
+    private MediaPlayer mediaplayer;
 //    REQUESTING PERMISSIONS FOR AUDIO AND STORAGE
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -62,7 +65,6 @@ public class activity_recording extends AppCompatActivity {
                 break;
         }
         if (!permissionToRecordAccepted ) finish();
-
     }
 
 
@@ -81,6 +83,21 @@ public class activity_recording extends AppCompatActivity {
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
+
+        if(Build.VERSION.SDK_INT==Build.VERSION_CODES.R){
+            if(Environment.isExternalStorageManager()){
+                Toast.makeText(this,"Access grated",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent= new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                Uri uri=Uri.fromParts("package",this.getPackageName(),null);
+                intent.setData(uri);
+                startActivity(intent);
+                Toast.makeText(this,"nai hua re",Toast.LENGTH_SHORT).show();
+            }
+        }
+
         mRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,11 +108,7 @@ public class activity_recording extends AppCompatActivity {
                     mRecordLable.setText("Recording Stopped");
                     isRecording=false;
                 }else{
-                    try {
-                        startRecording();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    startRecording();
                     mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
                     aniamte();
                     mRecordLable.setText("Recording Started");
@@ -105,32 +118,66 @@ public class activity_recording extends AppCompatActivity {
             }
         });
     }
-    // START RECORDING CODE
-    Uri audiouri;
-    ParcelFileDescriptor file;
-    private void startRecording() throws IOException {
-        ContentValues values = new ContentValues(4);
-        values.put(MediaStore.Audio.Media.TITLE, fileName);
-        values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (System.currentTimeMillis() / 1000));
-        values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3");
-        values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiibxd.mp3");
-//        values.put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings/");
+//     START RECORDING CODE
+//    Uri audiouri;
+//    ParcelFileDescriptor file;
+//    private void startRecording() throws IOException {
+//        ContentValues values = new ContentValues(4);
+//        values.put(MediaStore.Audio.Media.TITLE, filename);
+//        values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (System.currentTimeMillis() / 1000));
+//        values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3");
+//        values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiibxd.mp3");
+////        values.put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings/");
+//
+//        audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
+//        file = getContentResolver().openFileDescriptor(audiouri, "w");
+//
+//        timer.setBase(SystemClock.elapsedRealtime());
+//        timer.start();
+//        if (file != null) {
+//            recorder = new MediaRecorder();
+//            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+//            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+//            recorder.setOutputFile(getRecordingFilePath());
+//            recorder.setAudioChannels(1);
+//            recorder.prepare();
+//            recorder.start();
+//        }
+//    }
 
-        audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
-        file = getContentResolver().openFileDescriptor(audiouri, "w");
+//    private void startRecording(){
+//        String recordpath =getExternalFilesDir("/").getAbsolutePath();
+//        filename="recording.3gp";
+//        recorder=new MediaRecorder();
+//        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+//        recorder.setOutputFile(recordpath+"/"+filename);
+//        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+//
+//        try {
+//            recorder.prepare();
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+//
+//        recorder.start();
+//    }
 
-        timer.setBase(SystemClock.elapsedRealtime());
-        timer.start();
-        if (file != null) {
-            recorder = new MediaRecorder();
-            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            recorder.setOutputFile(file.getFileDescriptor());
-            recorder.setAudioChannels(1);
+    private void startRecording() {
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFile(getRecordingFilePath());
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
             recorder.prepare();
-            recorder.start();
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
         }
+
+        recorder.start();
     }
 
     // STOP RECORDING CODE
@@ -161,7 +208,8 @@ public class activity_recording extends AppCompatActivity {
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now =new Date();
 
-        File file=new File(musicDirectory,"Recording.."+formatter.format(now)+".3gp");
+        File file=new File(musicDirectory,"Recording.."+".3gp");
+//        File file=new File(musicDirectory,"Recording.."+formatter.format(now)+".3gp");
         Log.i(TAG, "getRecordingFilePath: "+file.getPath());
         return file.getPath();
     }
@@ -170,5 +218,16 @@ public class activity_recording extends AppCompatActivity {
         mRecordBtn=findViewById(R.id.recordBtn);
         final Animation animation= AnimationUtils.loadAnimation(this,R.anim.bounce);
         mRecordBtn.startAnimation(animation);
+    }
+    public void playrecent(View view) {
+        try {
+            mediaplayer = new MediaPlayer();
+            mediaplayer.setDataSource(getRecordingFilePath());
+            mediaplayer.prepare();
+            mediaplayer.start();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
