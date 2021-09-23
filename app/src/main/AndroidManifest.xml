@@ -17,6 +17,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voice_notes">
         <activity android:name=".category"></activity>
+
+        <activity
+            android:name=".ListOfAudo"
+            android:exported="true" />
         <activity android:name=".activity_recording" />
         <activity
             android:name=".RegistrationActivity"

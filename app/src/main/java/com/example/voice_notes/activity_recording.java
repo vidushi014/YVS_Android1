@@ -128,6 +128,7 @@ public class activity_recording extends AppCompatActivity {
         audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
         file = getContentResolver().openFileDescriptor(audiouri, "w");
 
+
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
         if (file != null) {
