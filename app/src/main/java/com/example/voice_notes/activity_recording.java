@@ -208,8 +208,8 @@ public class activity_recording extends AppCompatActivity {
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now =new Date();
 
-        File file=new File(musicDirectory,"Recording.."+".3gp");
-//        File file=new File(musicDirectory,"Recording.."+formatter.format(now)+".3gp");
+//        File file=new File(musicDirectory,"Recording.."+".3gp");
+        File file=new File(musicDirectory,"Recording.."+formatter.format(now)+".3gp");
         Log.i(TAG, "getRecordingFilePath: "+file.getPath());
         return file.getPath();
     }
@@ -219,17 +219,17 @@ public class activity_recording extends AppCompatActivity {
         final Animation animation= AnimationUtils.loadAnimation(this,R.anim.bounce);
         mRecordBtn.startAnimation(animation);
     }
-    public void playrecent(View view) {
-        try {
-            mediaplayer = new MediaPlayer();
-            mediaplayer.setDataSource(getRecordingFilePath());
-            mediaplayer.prepare();
-            mediaplayer.start();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    public void playrecent(View view) {
+//        try {
+//            mediaplayer = new MediaPlayer();
+//            mediaplayer.setDataSource(getRecordingFilePath());
+//            mediaplayer.prepare();
+//            mediaplayer.start();
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
     public void linktolist(View view) {
         Intent intent = new Intent(this, list.class);
         startActivity(intent);

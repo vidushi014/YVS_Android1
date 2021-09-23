@@ -22,26 +22,34 @@ public class list extends AppCompatActivity {
         setContentView(R.layout.list_ui);
 
         listview=findViewById(R.id.list);
-        displayList();
+        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,displayList());
+        listview.setAdapter(myadapter);
     }
 
-    private void displayList() {
+//    private ArrayList<String>findrecordings(File file){
+//        ArrayList<String> items=new ArrayList<>();
+//        File files[]=file.listFiles();
+//        for(File singlefile:files){
+//            if(singlefile.isDirectory() && !singlefile.isHidden()){
+//                findrecordings(singlefile);
+//            }
+//            else{
+//                items.add(singlefile.getName().toString());
+//            }
+//        }
+//        return items;
+//    }
+
+    private ArrayList<String> displayList() {
         ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
         File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
 
         File[] recording_files = musicDirectory.listFiles() ;
         ArrayList<String> items=new ArrayList<>() ;
-
-        for(File singlefile :recording_files){
-            if(!singlefile.isDirectory() && !singlefile.isHidden() && singlefile.getName().toString().endsWith(".3gp")){
-                items.add(singlefile.getName().toString().replace(".mp3",""));
-            }
+        for(int i=0;i<recording_files.length;i++){
+            items.add(recording_files[i].getName().toString());
+            Log.i("lololol",items.get(i));
         }
-        if(items.size()==0){
-            Log.i("lulhogaya","shimtz");
-        }
-
-        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this,R.layout.list_ui,items);
-        listview.setAdapter(myadapter);
+        return items;
     }
 }
