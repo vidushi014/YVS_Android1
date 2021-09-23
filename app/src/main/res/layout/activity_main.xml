@@ -54,9 +54,10 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="39dp"
         android:text="Login to Voice Notes"
+        android:textAlignment="center"
         android:textColor="#F5F5F5"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -98,29 +99,38 @@
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="52dp"
+        android:background="@drawable/btnbg"
         android:ems="10"
         android:hint="Email ID"
         android:inputType="textEmailAddress"
+
+        android:paddingLeft="30dp"
+        android:paddingRight="10dp"
         android:textColor="#F5F5F5"
         android:textColorHint="#A3C4C4C4"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="302dp"
+        android:layout_height="50dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/btnbg"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingLeft="30dp"
+        android:paddingRight="10dp"
+        android:textAlignment="viewStart"
         android:textColor="#F5F5F5"
         android:textColorHint="#A3C4C4C4"
         android:textSize="20sp"
