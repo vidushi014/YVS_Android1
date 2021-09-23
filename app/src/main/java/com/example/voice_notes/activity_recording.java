@@ -230,4 +230,8 @@ public class activity_recording extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    public void linktolist(View view) {
+        Intent intent = new Intent(this, list.class);
+        startActivity(intent);
+    }
 }

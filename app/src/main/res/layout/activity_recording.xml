@@ -55,6 +55,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
+        android:onClick="linktolist"
         android:id="@+id/imageButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
