@@ -73,14 +73,20 @@ public class activity_recording extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
+
+
 //        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         mRecordLable=findViewById(R.id.recordLable);
         mRecordBtn=findViewById(R.id.recordBtn);
         mstopbtn=findViewById(R.id.imageButton1);
         timer=findViewById(R.id.recordtimer);
+
+
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
+
+
         mRecordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +111,7 @@ public class activity_recording extends AppCompatActivity {
             }
         });
     }
+
     // START RECORDING CODE
     Uri audiouri;
     ParcelFileDescriptor file;
@@ -114,6 +121,8 @@ public class activity_recording extends AppCompatActivity {
         values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (System.currentTimeMillis() / 1000));
         values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3");
         values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiibxd.mp3");
+
+
 //        values.put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings/");
 
         audiouri = getContentResolver().insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values);
@@ -171,4 +180,11 @@ public class activity_recording extends AppCompatActivity {
         final Animation animation= AnimationUtils.loadAnimation(this,R.anim.bounce);
         mRecordBtn.startAnimation(animation);
     }
+
+    public void linkToCategory(View v) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, category.class);
+        startActivity(intent);
+    }
 }
+
