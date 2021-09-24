@@ -35,6 +35,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -42,6 +45,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class activity_recording extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+
     private ImageButton mRecordBtn;
     private ImageButton mstopbtn;
     private TextView mRecordLable;
@@ -75,6 +80,8 @@ public class activity_recording extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
 //        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
@@ -123,6 +130,7 @@ public class activity_recording extends AppCompatActivity {
             }
         });
     }
+
 
 //     START RECORDING CODE
 //    Uri audiouri;

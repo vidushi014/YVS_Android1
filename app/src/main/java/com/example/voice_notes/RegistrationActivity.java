@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText etRegPassword;
     EditText etRegConfPass;
     ImageButton btnRegister;
+    Button reLogin;
 
     FirebaseAuth mAuth;
 
@@ -38,12 +40,17 @@ public class RegistrationActivity extends AppCompatActivity {
         etRegPassword = findViewById(R.id.editTextTextPassword2);
         etRegConfPass = findViewById(R.id.editTextTextPassword3);
         btnRegister = findViewById(R.id.imageButton2);
+        reLogin = findViewById(R.id.Button2);
 
 
         mAuth = FirebaseAuth.getInstance();
 
         btnRegister.setOnClickListener(view ->{
             createUser();
+        });
+
+        reLogin.setOnClickListener(v -> {
+            startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
         });
     }
     private void createUser(){
@@ -86,10 +93,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    public void linkToLogin(View v) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-
-    }
+//    public void linkToLogin(View v) {
+//        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+//
+//    }
 }
