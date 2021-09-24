@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -82,7 +83,21 @@ public class RegistrationActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         Toast.makeText(RegistrationActivity.this, "user registered successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
+
+                        DbQuery.createUserdata(email, new MyCompleteListener() {
+                            @Override
+                            public void onSuccess() {
+                                startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                Toast.makeText(RegistrationActivity.this,"something went wrong. Please try again later",Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+
                     }
                     else{
                         Toast.makeText(RegistrationActivity.this, "Registration failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();

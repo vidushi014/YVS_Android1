@@ -61,7 +61,7 @@ public class category extends AppCompatActivity {
             GoogleSignInClient mGoogleClient = GoogleSignIn.getClient(getBaseContext(),gso);
 
             mGoogleClient.signOut();
-            
+
             startActivity(new Intent(category.this , MainActivity.class));
         });
 

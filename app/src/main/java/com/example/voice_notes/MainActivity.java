@@ -28,6 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         regHere = findViewById(R.id.button);
 
         mAuth = FirebaseAuth.getInstance();
+        DbQuery.gFireStore = FirebaseFirestore.getInstance();
 
         requestGoogleSignIn();
         btnSignIn.setOnClickListener(view -> {
