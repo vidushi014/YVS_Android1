@@ -1,5 +1,7 @@
 package com.example.voice_notes;
 
+import android.widget.ImageView;
+
 public class CategoryModel {
 
 //    variable creation
@@ -7,12 +9,14 @@ public class CategoryModel {
     private String docID;
     private String name;
     private int noOfTests;
+    private ImageView catIcon;
 
 //    constructor
     public CategoryModel(String docID, String name, int noOfTests) {
         this.docID = docID;
         this.name = name;
         this.noOfTests = noOfTests;
+        this.catIcon = catIcon;
     }
 
 //    getters and setters
@@ -40,5 +44,10 @@ public class CategoryModel {
 
     public void setNoOfTests(int noOfTests) {
         this.noOfTests = noOfTests;
+    }
+
+    public ImageView getCatIcons() {
+         catIcon.setImageResource(R.drawable.devil);
+         return catIcon;
     }
 }

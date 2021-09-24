@@ -25,6 +25,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/CatIcon"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:src="@drawable/devil"></ImageView>

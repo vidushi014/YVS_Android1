@@ -169,7 +169,6 @@ public class activity_recording extends AppCompatActivity {
 //
 //        recorder.start();
 //    }
-=======
 
     // START RECORDING CODE
 //     Uri audiouri;
@@ -266,7 +265,7 @@ public class activity_recording extends AppCompatActivity {
         Intent intent = new Intent(this, list.class);
         startActivity(intent);
     }
-}
+
 
     public void linkToCategory(View v) {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();

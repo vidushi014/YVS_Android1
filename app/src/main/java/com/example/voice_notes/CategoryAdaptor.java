@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -45,9 +46,12 @@ public class CategoryAdaptor extends BaseAdapter {
 
         TextView catName = myView.findViewById(R.id.CatName);
         TextView noOfTests = myView.findViewById(R.id.noOfTest);
+        ImageView catIcon = myView.findViewById(R.id.CatIcon);
 
+//        catIcon.setImageResource(cat_list.get(position).getCatIcons());
         catName.setText(cat_list.get(position).getName());
         noOfTests.setText(String.valueOf(cat_list.get(position).getNoOfTests()) + "recordings");
+
 
 
         return myView;
