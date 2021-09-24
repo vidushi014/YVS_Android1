@@ -19,6 +19,11 @@
         android:theme="@style/Theme.Voice_notes">
         <activity
             android:name=".list"
+
+        <activity android:name=".category"></activity>
+
+        <activity
+            android:name=".ListOfAudo"
             android:exported="true" />
         <activity android:name=".activity_recording" />
         <activity
