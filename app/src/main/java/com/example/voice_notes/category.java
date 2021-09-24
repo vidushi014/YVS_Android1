@@ -20,7 +20,7 @@ import java.util.zip.Inflater;
 public class category extends AppCompatActivity {
 
 //    for firebase authentication
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
 //    our logout variable
     Button logoutB;
@@ -43,6 +43,7 @@ public class category extends AppCompatActivity {
         catView.setAdapter(adapter);
 
 
+        mAuth = FirebaseAuth.getInstance();
 
         logoutB.setOnClickListener(view ->{
             mAuth.signOut();

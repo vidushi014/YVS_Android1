@@ -76,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null){
-            startActivity(new Intent(this, MainActivity.class));
-        }
-        else {
+        if (user != null){
+//            startActivity(new Intent(this, MainActivity.class));
+//        }
+//        else {
             startActivity(new Intent(MainActivity.this, activity_recording.class));
         }
     }
