@@ -1,5 +1,6 @@
 package com.example.voice_notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
@@ -11,6 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -47,6 +53,15 @@ public class category extends AppCompatActivity {
 
         logoutB.setOnClickListener(view ->{
             mAuth.signOut();
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+
+            GoogleSignInClient mGoogleClient = GoogleSignIn.getClient(getBaseContext(),gso);
+
+            mGoogleClient.signOut();
+            
             startActivity(new Intent(category.this , MainActivity.class));
         });
 
