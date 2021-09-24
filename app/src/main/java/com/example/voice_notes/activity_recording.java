@@ -75,14 +75,19 @@ public class activity_recording extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recording);
+
+
 //        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
         mRecordLable=findViewById(R.id.recordLable);
         mRecordBtn=findViewById(R.id.recordBtn);
         mstopbtn=findViewById(R.id.imageButton1);
         timer=findViewById(R.id.recordtimer);
+
+
         if (isMicrophonePresent()){
             getMicrophonePermission();
         }
+
 
         if(Build.VERSION.SDK_INT==Build.VERSION_CODES.R){
             if(Environment.isExternalStorageManager()){
@@ -118,6 +123,7 @@ public class activity_recording extends AppCompatActivity {
             }
         });
     }
+
 //     START RECORDING CODE
 //    Uri audiouri;
 //    ParcelFileDescriptor file;
@@ -163,6 +169,20 @@ public class activity_recording extends AppCompatActivity {
 //
 //        recorder.start();
 //    }
+=======
+
+    // START RECORDING CODE
+//     Uri audiouri;
+//     ParcelFileDescriptor file;
+//     private void startRecording() throws IOException {
+//         ContentValues values = new ContentValues(4);
+//         values.put(MediaStore.Audio.Media.TITLE, fileName);
+//         values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (System.currentTimeMillis() / 1000));
+//         values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3");
+//         values.put(MediaStore.Audio.Media.DISPLAY_NAME, "hiiibxd.mp3");
+
+
+//        values.put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings/");
 
     private void startRecording() {
         recorder = new MediaRecorder();
@@ -172,6 +192,17 @@ public class activity_recording extends AppCompatActivity {
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try {
+
+//         timer.setBase(SystemClock.elapsedRealtime());
+//         timer.start();
+//         if (file != null) {
+//             recorder = new MediaRecorder();
+//             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+//             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+//             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+//             recorder.setOutputFile(file.getFileDescriptor());
+//             recorder.setAudioChannels(1);
+
             recorder.prepare();
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
@@ -219,6 +250,7 @@ public class activity_recording extends AppCompatActivity {
         final Animation animation= AnimationUtils.loadAnimation(this,R.anim.bounce);
         mRecordBtn.startAnimation(animation);
     }
+
 //    public void playrecent(View view) {
 //        try {
 //            mediaplayer = new MediaPlayer();
@@ -235,3 +267,11 @@ public class activity_recording extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+    public void linkToCategory(View v) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, category.class);
+        startActivity(intent);
+    }
+}
+
