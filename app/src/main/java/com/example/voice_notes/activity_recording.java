@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -35,8 +36,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +65,12 @@ public class activity_recording extends AppCompatActivity {
     private boolean isRecording=false;
     private static final String TAG = "Activity record";
     private MediaPlayer mediaplayer;
+
+//    for firebase storage
+
+    private StorageReference mStorage;
+    private ProgressDialog mProgress;
+
 //    REQUESTING PERMISSIONS FOR AUDIO AND STORAGE
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -82,6 +93,11 @@ public class activity_recording extends AppCompatActivity {
         setContentView(R.layout.activity_recording);
 
         mAuth = FirebaseAuth.getInstance();
+
+//        for audio storage in firebase
+
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mProgress = new ProgressDialog(this);
 
 
 //        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
@@ -224,7 +240,38 @@ public class activity_recording extends AppCompatActivity {
         recorder.release();
         recorder = null;
         timer.stop();
+
+        uploadAudio();
     }
+
+//    to upload audio in firebase storage
+
+    private void uploadAudio() {
+
+        mProgress.setMessage("Uploading Audio...");
+
+        mProgress.show();
+
+        SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
+        Date now =new Date();
+
+
+        StorageReference filepath = mStorage.child("Audio").child("Recording..."+ formatter.format(now) +".3gp");
+
+        Uri uri = Uri.fromFile(getfile(getRecordingFilePath()));
+
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                mProgress.dismiss();
+
+                mRecordLable.setText("Uploading Finished");
+
+            }
+        });
+    }
+
     // PRESENCE OF MICROPHONE
     private boolean isMicrophonePresent(){
         if(this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_MICROPHONE)){
@@ -279,6 +326,22 @@ public class activity_recording extends AppCompatActivity {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, category.class);
         startActivity(intent);
+    }
+
+
+    public File getfile(String str){
+        File[] recording_files= music_dir().listFiles();
+        for(int i=0;i<recording_files.length;i++){
+            if(recording_files[i].getName().toString().endsWith(str)){
+                return recording_files[i];
+            }
+        }
+        return recording_files[0];
+    }
+    public File music_dir(){
+        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+        return musicDirectory;
     }
 }
 
