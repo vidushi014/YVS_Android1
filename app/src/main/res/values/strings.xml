@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Voice Notes</string>
+    <string-array name="location" >
+        <item>Choose location to save</item>
+        <item>Local</item>
+        <item>Shared</item>
+    </string-array>
 </resources>

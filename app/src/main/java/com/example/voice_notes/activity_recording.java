@@ -28,11 +28,16 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,7 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class activity_recording extends AppCompatActivity {
+public class activity_recording extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private FirebaseAuth mAuth;
 
     private ImageButton mRecordBtn;
@@ -67,6 +72,7 @@ public class activity_recording extends AppCompatActivity {
     private boolean isRecording=false;
     private static final String TAG = "Activity record";
     private MediaPlayer mediaplayer;
+    private Spinner spinner;
 
 //    for firebase storage
 
@@ -148,6 +154,16 @@ public class activity_recording extends AppCompatActivity {
                 }
             }
         });
+
+//        CODE FOR SPINNER
+
+        spinner=findViewById(R.id.spinner);
+        spinner.setOnItemSelectedListener(this);
+        String[] text=getResources().getStringArray(R.array.location);
+        ArrayAdapter adapter=new ArrayAdapter(this, android.R.layout.simple_spinner_item,text);
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
     }
 
 
@@ -219,8 +235,8 @@ public class activity_recording extends AppCompatActivity {
 
         try {
 
-//         timer.setBase(SystemClock.elapsedRealtime());
-//         timer.start();
+         timer.setBase(SystemClock.elapsedRealtime());
+         timer.start();
 //         if (file != null) {
 //             recorder = new MediaRecorder();
 //             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -331,30 +347,57 @@ public class activity_recording extends AppCompatActivity {
     }
 
 
-    public void linkToCategory(View v) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, category.class);
-//        startActivity(intent);
-          DbQuery.loadCategory(new MyCompleteListener() {
-              @Override
-              public void onSuccess() {
+//    public void linkToCategory(View v) {
+//        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+////        Intent intent = new Intent(this, category.class);
+////        startActivity(intent);
+//          DbQuery.loadCategory(new MyCompleteListener() {
+//              @Override
+//              public void onSuccess() {
+//
+//                  Intent intent = new Intent(activity_recording.this, category.class);
+//                  startActivity(intent);
+//                  finish();
+//
+//              }
+//
+//              @Override
+//              public void onFailure() {
+//
+//                  Toast.makeText(activity_recording.this, "Something went wrong please try again after some time", Toast.LENGTH_SHORT).show();
+//
+//              }
+//          });
+//
+//    }
+// Methods for spinner
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if(i==0){
 
-                  Intent intent = new Intent(activity_recording.this, category.class);
-                  startActivity(intent);
-                  finish();
-
-              }
-
-              @Override
-              public void onFailure() {
-
-                  Toast.makeText(activity_recording.this, "Something went wrong please try again after some time", Toast.LENGTH_SHORT).show();
-
-              }
-          });
-
+        }
+        if(adapterView.getId()==R.id.spinner){
+            // Write code for local and shared storage
+        }
     }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+    /*Code to be written for drop down
+//    public View getDropDownView(int position, View convertView,
+//                                ViewGroup parent) {
+//        if (position == 0) {
+//            // Set the hint text color gray
+//
+//        } else {
+//
+//        }
+//        return ;
+//    }
+
+     */
 
 //    public File getfile(String str){
 //        File[] recording_files= music_dir().listFiles();
