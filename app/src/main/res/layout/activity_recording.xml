@@ -7,6 +7,18 @@
     android:background="#010A40"
     tools:context=".activity_recording">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="412dp"
+        android:layout_height="289dp"
+        android:adjustViewBounds="false"
+        android:paddingTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/upwave" />
+
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageView"
         android:layout_width="418dp"
@@ -20,32 +32,44 @@
         app:layout_constraintTop_toBottomOf="@+id/recordLable"
         tools:ignore="MissingClass" />
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.197"
+        app:srcCompat="@drawable/watermark" />
+
     <TextView
         android:id="@+id/recordLable"
         android:layout_width="409dp"
         android:layout_height="43dp"
         android:text="Recording Audio"
-        android:textColor="#FFF8F8"
         android:textAlignment="center"
+        android:textColor="#FFF8F8"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintVertical_bias="0.167" />
 
     <ImageButton
 
 
-        android:onClick="linkToCategory"
         android:id="@+id/imageButton1"
         android:layout_width="35dp"
         android:layout_height="45dp"
         android:layout_marginBottom="3dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
+        android:onClick="linkToCategory"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,13 +81,13 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
-        android:onClick="linktolist"
         android:id="@+id/imageButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="3dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
+        android:onClick="linktolist"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,18 +112,6 @@
         app:layout_constraintVertical_bias="0.904"
         app:srcCompat="@drawable/mic" />
 
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197"
-        app:srcCompat="@drawable/watermark" />
-
     <Chronometer
         android:id="@+id/recordtimer"
         android:layout_width="215dp"
@@ -110,9 +122,8 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/recordBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gifImageView"
-        app:layout_constraintVertical_bias="0.024" />
+        app:layout_constraintVertical_bias="0.055" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
