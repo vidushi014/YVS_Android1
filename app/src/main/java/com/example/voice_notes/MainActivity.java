@@ -170,6 +170,26 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(MainActivity.this, "user Login successful", Toast.LENGTH_SHORT).show();
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            if (task.getResult().getAdditionalUserInfo().isNewUser())
+                            {
+                                DbQuery.createUserdata(user.getEmail(), new MyCompleteListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        startActivity(new Intent(MainActivity.this, activity_recording.class));
+                                    }
+
+                                    @Override
+                                    public void onFailure() {
+
+                                        Toast.makeText(MainActivity.this, "Something went wrong please try again after some time", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();

@@ -34,7 +34,7 @@ public class category extends AppCompatActivity {
 //   our grid variable
     private GridView catView;
 //    our list variable to get list from firebase using our 2 self created java classes i.e categoryModel and categoryAdaptor
-    private List<CategoryModel> catList = new ArrayList<>();
+//    private List<CategoryModel> catList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,8 @@ public class category extends AppCompatActivity {
         catView = findViewById(R.id.cat_Grid);
         logoutB = findViewById(R.id.LogOut);
 
-        loadCategory();
-        CategoryAdaptor adapter = new CategoryAdaptor(catList);
+//        loadCategory();
+        CategoryAdaptor adapter = new CategoryAdaptor(DbQuery.gCatList);
         catView.setAdapter(adapter);
 
 
@@ -67,14 +67,14 @@ public class category extends AppCompatActivity {
 
     }
 
-    private void loadCategory(){
-        catList.clear();
-        catList.add(new CategoryModel("1","favourites",10));
-        catList.add(new CategoryModel("2","office",15));
-        catList.add(new CategoryModel("3","personal",30));
-        catList.add(new CategoryModel("4","ideas",20));
-        catList.add(new CategoryModel("5","uploaded",10));
-        catList.add(new CategoryModel("6","saved",40));
-    }
+//    private void loadCategory(){
+//        catList.clear();
+//        catList.add(new CategoryModel("1","favourites",10));
+//        catList.add(new CategoryModel("2","office",15));
+//        catList.add(new CategoryModel("3","personal",30));
+//        catList.add(new CategoryModel("4","ideas",20));
+//        catList.add(new CategoryModel("5","uploaded",10));
+//        catList.add(new CategoryModel("6","saved",40));
+//    }
 
 }

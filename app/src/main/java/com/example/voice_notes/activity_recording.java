@@ -37,8 +37,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -93,6 +95,7 @@ public class activity_recording extends AppCompatActivity {
         setContentView(R.layout.activity_recording);
 
         mAuth = FirebaseAuth.getInstance();
+        DbQuery.gFireStore = FirebaseFirestore.getInstance();
 
 //        for audio storage in firebase
 
@@ -252,13 +255,19 @@ public class activity_recording extends AppCompatActivity {
 
         mProgress.show();
 
+        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now =new Date();
 
 
         StorageReference filepath = mStorage.child("Audio").child("Recording..."+ formatter.format(now) +".3gp");
 
-        Uri uri = Uri.fromFile(getfile(getRecordingFilePath()));
+        File[] files = musicDirectory.listFiles();
+        File fUri = files[files.length-1];
+
+        Uri uri = Uri.fromFile(fUri);
 
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -324,24 +333,42 @@ public class activity_recording extends AppCompatActivity {
 
     public void linkToCategory(View v) {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, category.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, category.class);
+//        startActivity(intent);
+          DbQuery.loadCategory(new MyCompleteListener() {
+              @Override
+              public void onSuccess() {
+
+                  Intent intent = new Intent(activity_recording.this, category.class);
+                  startActivity(intent);
+                  finish();
+
+              }
+
+              @Override
+              public void onFailure() {
+
+                  Toast.makeText(activity_recording.this, "Something went wrong please try again after some time", Toast.LENGTH_SHORT).show();
+
+              }
+          });
+
     }
 
 
-    public File getfile(String str){
-        File[] recording_files= music_dir().listFiles();
-        for(int i=0;i<recording_files.length;i++){
-            if(recording_files[i].getName().toString().endsWith(str)){
-                return recording_files[i];
-            }
-        }
-        return recording_files[0];
-    }
-    public File music_dir(){
-        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
-        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-        return musicDirectory;
-    }
+//    public File getfile(String str){
+//        File[] recording_files= music_dir().listFiles();
+//        for(int i=0;i<recording_files.length;i++){
+//            if(recording_files[i].getName().toString().endsWith(str)){
+//                return recording_files[i];
+//            }
+//        }
+//        return recording_files[0];
+//    }
+//    public File music_dir(){
+//        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+//        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+//        return musicDirectory;
+//    }
 }
 
