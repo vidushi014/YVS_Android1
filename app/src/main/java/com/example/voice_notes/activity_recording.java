@@ -347,29 +347,29 @@ public class activity_recording extends AppCompatActivity implements AdapterView
     }
 
 
-//    public void linkToCategory(View v) {
-//        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-////        Intent intent = new Intent(this, category.class);
-////        startActivity(intent);
-//          DbQuery.loadCategory(new MyCompleteListener() {
-//              @Override
-//              public void onSuccess() {
-//
-//                  Intent intent = new Intent(activity_recording.this, category.class);
-//                  startActivity(intent);
-//                  finish();
-//
-//              }
-//
-//              @Override
-//              public void onFailure() {
-//
-//                  Toast.makeText(activity_recording.this, "Something went wrong please try again after some time", Toast.LENGTH_SHORT).show();
-//
-//              }
-//          });
-//
-//    }
+    public void linkToCategory(View v) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(this, category.class);
+//        startActivity(intent);
+          DbQuery.loadCategory(new MyCompleteListener() {
+              @Override
+              public void onSuccess() {
+
+                  Intent intent = new Intent(activity_recording.this, category.class);
+                  startActivity(intent);
+                  finish();
+
+              }
+
+              @Override
+              public void onFailure() {
+
+                  Toast.makeText(activity_recording.this, "Something went wrong please try again after some time", Toast.LENGTH_SHORT).show();
+
+              }
+          });
+
+    }
 // Methods for spinner
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
