@@ -260,19 +260,24 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         recorder = null;
         timer.stop();
 
-        uploadAudio();
+        if(spinner.getSelectedItem().toString().equals("Shared")) {
+            String filepath = Environment.getExternalStorageDirectory().getPath();
+            File file = new File(filepath+"/Shared");
+            File files[]=file.listFiles();
+            uploadAudio(files[files.length-1]);
+            Log.i("Shared",spinner.getSelectedItem().toString());
+        }
+
     }
 
 //    to upload audio in firebase storage
 
-    private void uploadAudio() {
+    private void uploadAudio(File file) {
 
         mProgress.setMessage("Uploading Audio...");
 
         mProgress.show();
 
-        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
-        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
 
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now =new Date();
@@ -280,10 +285,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
         StorageReference filepath = mStorage.child("Audio").child("Recording..."+ formatter.format(now) +".3gp");
 
-        File[] files = musicDirectory.listFiles();
-        File fUri = files[files.length-1];
-
-        Uri uri = Uri.fromFile(fUri);
+        Uri uri = Uri.fromFile(file);
 
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -311,17 +313,20 @@ public class activity_recording extends AppCompatActivity implements AdapterView
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},REQUEST_RECORD_AUDIO_PERMISSION);
         }
     }
+
     // Storing the file path
     private String getRecordingFilePath(){
-        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
-        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now =new Date();
 
-//        File file=new File(musicDirectory,"Recording.."+".3gp");
-        File file=new File(musicDirectory,"Recording.."+formatter.format(now)+".3gp");
-        Log.i(TAG, "getRecordingFilePath: "+file.getPath());
-        return file.getPath();
+        String filepath = Environment.getExternalStorageDirectory().getPath();
+        File file = new File(filepath+"/"+spinner.getSelectedItem().toString());
+        if(!file.exists()){
+            file.mkdir();
+        }
+        Log.i(TAG, "getRecordingFilePath:::: "+file.getAbsolutePath()+"/recording.."+formatter.format(now)+".3gp");
+        return file.getAbsolutePath()+"/recording.."+formatter+".3gp";
     }
 //    Adding animation to button
     public void aniamte(){
