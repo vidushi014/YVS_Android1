@@ -1,8 +1,10 @@
 package com.example.voice_notes;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,7 +18,7 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class list extends AppCompatActivity {
+public class list extends AppCompatActivity  {
 
     private ListView listview;
     private MediaPlayer mediaplayer;
@@ -43,6 +45,46 @@ public class list extends AppCompatActivity {
                     }
             }
 
+        });
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                removeItemFromList(i);
+                items.remove(i);
+                return true;
+            }
+            // method to remove list item
+            protected void removeItemFromList(int position) {
+                final int deletePosition = position;
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(
+                        list.this);
+
+                alert.setTitle("Delete");
+                alert.setMessage("Do you want delete this item?");
+                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TOD O Auto-generated method stub
+
+                        // main code on after clicking yes
+                        items.remove(deletePosition-1);
+                        myadapter.notifyDataSetChanged();
+//                        myadapter.notifyDataSetInvalidated();
+
+                    }
+                });
+                alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
+            }
         });
     }
 
@@ -87,4 +129,7 @@ public class list extends AppCompatActivity {
         }
         return items;
     }
+
+
+
 }
