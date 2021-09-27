@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -33,6 +35,7 @@ public class category extends AppCompatActivity {
 
 //   our grid variable
     private GridView catView;
+    MediaPlayer mediaplayer;
 //    our list variable to get list from firebase using our 2 self created java classes i.e categoryModel and categoryAdaptor
     private List<CategoryModel> catList = new ArrayList<>();
 
@@ -48,6 +51,14 @@ public class category extends AppCompatActivity {
         CategoryAdaptor adapter = new CategoryAdaptor(catList);
         catView.setAdapter(adapter);
 
+        catView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(category.this,listofcategory.class);
+                intent.putExtra("category",catList.get(i).getName());
+                startActivity(intent);
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -70,11 +81,11 @@ public class category extends AppCompatActivity {
     private void loadCategory(){
         catList.clear();
         catList.add(new CategoryModel("1","favourites",10));
-        catList.add(new CategoryModel("2","office",15));
+        catList.add(new CategoryModel("2","Local",15));
         catList.add(new CategoryModel("3","personal",30));
         catList.add(new CategoryModel("4","ideas",20));
         catList.add(new CategoryModel("5","uploaded",10));
-        catList.add(new CategoryModel("6","saved",40));
+        catList.add(new CategoryModel("6","Shared",40));
     }
 
 }
