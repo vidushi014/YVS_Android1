@@ -36,7 +36,7 @@ public class listofcategory extends AppCompatActivity {
         }
         getfiles(filepath);
 
-        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,items);
+        customadapter myadapter= new customadapter(this, 0,items);
         listView.setAdapter(myadapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
