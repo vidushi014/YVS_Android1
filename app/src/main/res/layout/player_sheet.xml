@@ -33,7 +33,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/ps_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -48,7 +48,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/ps_filename"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -68,22 +68,22 @@
         android:layout_width="74dp"
         android:layout_height="68dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"
-        app:layout_constraintEnd_toStartOf="@+id/player_play_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/ps_play_btn"
+        app:layout_constraintEnd_toStartOf="@+id/ps_play_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/player_play_btn"
+        app:layout_constraintTop_toTopOf="@+id/ps_play_btn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/backward" />
 
     <ImageView
-        android:id="@+id/player_play_btn"
+        android:id="@+id/ps_play_btn"
         android:layout_width="61dp"
         android:layout_height="58dp"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/ps_filename"
         app:srcCompat="@drawable/play1" />
 
     <ImageView
@@ -91,14 +91,15 @@
         android:layout_width="74dp"
         android:layout_height="68dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/player_play_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/ps_play_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/player_play_btn"
-        app:layout_constraintTop_toTopOf="@+id/player_play_btn"
+        app:layout_constraintStart_toEndOf="@+id/ps_play_btn"
+        app:layout_constraintTop_toTopOf="@+id/ps_play_btn"
         app:layout_constraintVertical_bias="0.466"
         app:srcCompat="@drawable/forward" />
 
     <SeekBar
+        android:id="@+id/ps_seekbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
@@ -106,6 +107,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_play_btn"
+        app:layout_constraintTop_toBottomOf="@+id/ps_play_btn"
         app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
