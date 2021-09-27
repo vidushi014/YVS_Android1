@@ -43,5 +43,6 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
     implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.scwang.wave:MultiWaveHeader:1.0.0-alpha-1'
 
 }
