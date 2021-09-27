@@ -48,9 +48,10 @@ public class CategoryAdaptor extends BaseAdapter {
         TextView noOfTests = myView.findViewById(R.id.noOfTest);
         ImageView catIcon = myView.findViewById(R.id.CatIcon);
 
-//        catIcon.setImageResource(cat_list.get(position).getCatIcons());
         catName.setText(cat_list.get(position).getName());
         noOfTests.setText(String.valueOf(cat_list.get(position).getNoOfTests()) + "recordings");
+        catIcon.setImageResource(cat_list.get(position).getCatIcon());
+
 
 
 
