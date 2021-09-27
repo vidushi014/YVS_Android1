@@ -76,11 +76,10 @@ public class list extends AppCompatActivity  {
                         // TOD O Auto-generated method stub
 
                         // main code on after clicking yes
-//                        items.remove(deletePosition-1);
-//                        myadapter.notifyDataSetChanged();
+                        items.remove(deletePosition-1);
+                        myadapter.notifyDataSetChanged();
 //                        myadapter.notifyDataSetInvalidated();
-                        myadapter.remove(myadapter.getItem(position-1));
-                        allfiles.get(position).delete();
+
                     }
                 });
                 alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -95,6 +94,60 @@ public class list extends AppCompatActivity  {
         });
 
     }
+
+//    public File getfile(String str){
+//        File[] recording_files= music_dir().listFiles();
+//        for(int i=0;i<recording_files.length;i++){
+//            if(recording_files[i].getName().toString().endsWith(str)){
+//                return recording_files[i];
+//            }
+//        }
+//        return recording_files[0];
+//    }
+//
+//    public File music_dir(){
+//        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+//        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+//        return musicDirectory;
+//    }
+//    private ArrayList<String>findrecordings(File file){
+//        ArrayList<String> items=new ArrayList<>();
+//        File files[]=file.listFiles();
+//        for(File singlefile:files){
+//            if(singlefile.isDirectory() && !singlefile.isHidden()){
+//                findrecordings(singlefile);
+//            }
+//            else{
+//                items.add(singlefile.getName().toString());
+//            }
+//        }
+//        return items;
+//    }
+
+//    private ArrayList<String> displayList() {
+//        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+//        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+//
+//        File[] recording_files = musicDirectory.listFiles() ;
+//        ArrayList<String> items=new ArrayList<>() ;
+//        for(int i=0;i<recording_files.length;i++){
+//            items.add(recording_files[i].getName().toString());
+//            Log.i("lololol",items.get(i));
+//        }
+//        return items;
+//    }
+//    private void traverser (File file){
+//        Log.i("test 1",file.getPath());
+//        File files[]= file.listFiles();
+//        for(int i=0;i<files.length;i++){
+//            if(files[i].isDirectory() && !files[i].isHidden() &&files[i].canRead()){
+//                traverser(files[i]);
+//            }
+//            else if(files[i].getName().endsWith(".3gp")){
+//                items.add(files[i].getName());
+//            }
+//        }
+//    }
     public void testing(File file){
 
         File files[] = file.listFiles();
