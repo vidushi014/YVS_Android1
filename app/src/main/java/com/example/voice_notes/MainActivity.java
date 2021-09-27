@@ -112,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public void linkToRegister(View v) {
-//        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(this, RegistrationActivity.class);
-//        startActivity(intent);
-//    }
+    public void linkToRegister(View v) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
+    }
 //    public void linkToRecorder(View v) {
 //        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
 //        Intent intent = new Intent(this, activity_recording.class);

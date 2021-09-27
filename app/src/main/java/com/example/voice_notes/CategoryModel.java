@@ -9,13 +9,16 @@ public class CategoryModel {
     private String docID;
     private String name;
     private int noOfTests;
-//    private ImageView catIcon;
+    private int catIcon;
 
-//    constructor
-    public CategoryModel(String docID, String name, int noOfTests) {
+
+
+    //    constructor
+    public CategoryModel(String docID, String name, int noOfTests,int catIcon) {
         this.docID = docID;
         this.name = name;
         this.noOfTests = noOfTests;
+        this.catIcon = catIcon;
     }
 
 //    getters and setters
@@ -45,8 +48,10 @@ public class CategoryModel {
         this.noOfTests = noOfTests;
     }
 
-//    public ImageView getCatIcons() {
-//         catIcon.setImageResource(R.drawable.devil);
-//         return catIcon;
-//    }
+    public int getCatIcon() {  return catIcon; }
+
+    public void setCatIcon(int catIcon) { this.catIcon = catIcon; }
+
+
+
 }
