@@ -22,7 +22,7 @@ import java.util.Map;
 public class DbQuery {
 
     public static FirebaseFirestore gFireStore;
-    public static List<CategoryModel> gCatList = new ArrayList<>();
+//    public static List<CategoryModel> gCatList = new ArrayList<>();
 
     public static void createUserdata(String email,MyCompleteListener completeListener){
 
@@ -58,63 +58,63 @@ public class DbQuery {
     }
 
 
-    public static void loadCategory(MyCompleteListener completeListener){
-
-        gCatList.clear();
-        gFireStore.collection("CATEGORIES").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                        Map<String, QueryDocumentSnapshot> docList = new ArrayMap<>();
-
-                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots)
-                        {
-                            docList.put(doc.getId(),doc);
-                        }
-
-                        QueryDocumentSnapshot CatListDoc = docList.get("categories");
-
-
-                        long catCount= CatListDoc.getLong("Count");
-
-                        for (int i=1 ; i<=catCount;i++){
-
-                            String catID = CatListDoc.getString("Cat" + String.valueOf(i) +"_ID");
-
-//                            Log.i("hemloo",catID);
-
-                            QueryDocumentSnapshot catDoc = docList.get(catID);
-
+//    public static void loadCategory(MyCompleteListener completeListener){
 //
-//                            if(CatListDoc==null){
-//                                Log.i("nahi hua","kya karein");
-//                            }
+//        gCatList.clear();
+//        gFireStore.collection("CATEGORIES").get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 //
-
-
-                            int noOfTest= catDoc.getLong("recordings").intValue();
-
-
-                            String catName = catDoc.getString("NAME");
-
-                            gCatList.add(new CategoryModel(catID,catName,noOfTest));
-                        }
-
-                        completeListener.onSuccess();
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        completeListener.onFailure();
-
-                    }
-                });
-
-
-    }
+//                        Map<String, QueryDocumentSnapshot> docList = new ArrayMap<>();
+//
+//                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots)
+//                        {
+//                            docList.put(doc.getId(),doc);
+//                        }
+//
+//                        QueryDocumentSnapshot CatListDoc = docList.get("categories");
+//
+//
+//                        long catCount= CatListDoc.getLong("Count");
+//
+//                        for (int i=1 ; i<=catCount;i++){
+//
+//                            String catID = CatListDoc.getString("Cat" + String.valueOf(i) +"_ID");
+//
+////                            Log.i("hemloo",catID);
+//
+//                            QueryDocumentSnapshot catDoc = docList.get(catID);
+//
+////
+////                            if(CatListDoc==null){
+////                                Log.i("nahi hua","kya karein");
+////                            }
+////
+//
+//
+//                            int noOfTest= catDoc.getLong("recordings").intValue();
+//
+//
+//                            String catName = catDoc.getString("NAME");
+//
+//                            gCatList.add(new CategoryModel(catID,catName,noOfTest));
+//                        }
+//
+//                        completeListener.onSuccess();
+//
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                        completeListener.onFailure();
+//
+//                    }
+//                });
+//
+//
+//    }
 
 }
