@@ -24,9 +24,10 @@ public class DbQuery {
     public static FirebaseFirestore gFireStore;
 //    public static List<CategoryModel> gCatList = new ArrayList<>();
 
-    public static void createUserdata(String email,MyCompleteListener completeListener){
+    public static void createUserdata(String name ,String email,MyCompleteListener completeListener){
 
         Map<String, Object> userData = new ArrayMap<>();
+        userData.put("Name",name);
         userData.put("Email_ID",email);
 
         DocumentReference userDoc = gFireStore.collection("USERS").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
