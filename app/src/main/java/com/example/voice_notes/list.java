@@ -1,7 +1,9 @@
 package com.example.voice_notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -14,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -22,6 +26,8 @@ public class list extends AppCompatActivity  {
 
     private ListView listview;
     private MediaPlayer mediaplayer;
+    private ConstraintLayout playersheet;
+    private BottomSheetBehavior bottomSheetBehavior;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +58,7 @@ public class list extends AppCompatActivity  {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 removeItemFromList(i);
-                items.remove(i);
+//                items.remove(i);
                 return true;
             }
             // method to remove list item
@@ -84,6 +90,23 @@ public class list extends AppCompatActivity  {
                     }
                 });
                 alert.show();
+            }
+        });
+
+        playersheet=findViewById(R.id.playersheet);
+        bottomSheetBehavior=BottomSheetBehavior.from(playersheet);
+
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if(newState==BottomSheetBehavior.STATE_HIDDEN){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
             }
         });
     }
@@ -129,6 +152,9 @@ public class list extends AppCompatActivity  {
         }
         return items;
     }
+/// code for media player
+
+
 
 
 
