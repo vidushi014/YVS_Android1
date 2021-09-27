@@ -22,20 +22,14 @@ public class list extends AppCompatActivity  {
 
     private ListView listview;
     private MediaPlayer mediaplayer;
-    private File filepath = new File(Environment.getExternalStorageDirectory().getPath()+"/voicenotes");
-    ArrayList<String> items = new ArrayList<String>();
-    ArrayList<File> allfiles = new ArrayList<File>();
-    private static final String TAG = "list";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_ui);
 
-        testing(filepath);
-
         listview=findViewById(R.id.list);
-        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,items);
+        ArrayList<String> items= displayList();
+        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,displayList());
         listview.setAdapter(myadapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -43,7 +37,7 @@ public class list extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     try {
                         mediaplayer = new MediaPlayer();
-                        mediaplayer.setDataSource(allfiles.get(i).getPath());
+                        mediaplayer.setDataSource(getfile(items.get(i)).toString());
                         mediaplayer.prepare();
                         mediaplayer.start();
                     } catch (Exception e) {
@@ -76,11 +70,10 @@ public class list extends AppCompatActivity  {
                         // TOD O Auto-generated method stub
 
                         // main code on after clicking yes
-//                        items.remove(deletePosition-1);
-//                        myadapter.notifyDataSetChanged();
+                        items.remove(deletePosition-1);
+                        myadapter.notifyDataSetChanged();
 //                        myadapter.notifyDataSetInvalidated();
-                        myadapter.remove(myadapter.getItem(position-1));
-                        allfiles.get(position).delete();
+
                     }
                 });
                 alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -93,21 +86,50 @@ public class list extends AppCompatActivity  {
                 alert.show();
             }
         });
-
     }
-    public void testing(File file){
 
-        File files[] = file.listFiles();
-
-        for(int i=0;i<files.length;i++){
-
-            if(files[i].isDirectory()){
-                testing(files[i]);
-            }
-            else {
-                items.add(files[i].getName());
-                allfiles.add(files[i]);
+    public File getfile(String str){
+        File[] recording_files= music_dir().listFiles();
+        for(int i=0;i<recording_files.length;i++){
+            if(recording_files[i].getName().toString().endsWith(str)){
+                return recording_files[i];
             }
         }
+        return recording_files[0];
     }
+
+    public File music_dir(){
+        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+        return musicDirectory;
+    }
+//    private ArrayList<String>findrecordings(File file){
+//        ArrayList<String> items=new ArrayList<>();
+//        File files[]=file.listFiles();
+//        for(File singlefile:files){
+//            if(singlefile.isDirectory() && !singlefile.isHidden()){
+//                findrecordings(singlefile);
+//            }
+//            else{
+//                items.add(singlefile.getName().toString());
+//            }
+//        }
+//        return items;
+//    }
+
+    private ArrayList<String> displayList() {
+        ContextWrapper contextWrapper=new ContextWrapper(getApplicationContext());
+        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
+
+        File[] recording_files = musicDirectory.listFiles() ;
+        ArrayList<String> items=new ArrayList<>() ;
+        for(int i=0;i<recording_files.length;i++){
+            items.add(recording_files[i].getName().toString());
+            Log.i("lololol",items.get(i));
+        }
+        return items;
+    }
+
+
+
 }

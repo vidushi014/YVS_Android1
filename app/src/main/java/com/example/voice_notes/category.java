@@ -34,7 +34,7 @@ public class category extends AppCompatActivity {
 //   our grid variable
     private GridView catView;
 //    our list variable to get list from firebase using our 2 self created java classes i.e categoryModel and categoryAdaptor
-    public static List<CategoryModel> catList = new ArrayList<>();
+    private List<CategoryModel> catList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
