@@ -101,7 +101,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_recording);
 
         mAuth = FirebaseAuth.getInstance();
-
+        DbQuery.gFireStore = FirebaseFirestore.getInstance();
 
 //        for audio storage in firebase
 
@@ -319,14 +319,18 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
         SimpleDateFormat formatter=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.CANADA);
         Date now =new Date();
-
         String filepath = Environment.getExternalStorageDirectory().getPath();
-        File file = new File(filepath+"/"+spinner.getSelectedItem().toString());
+        File temp= new File(filepath+"/voicenotes");
+        if(!temp.exists()){
+            temp.mkdir();
+        }
+        File file = new File(filepath+"/voicenotes/"+spinner.getSelectedItem().toString());
+//        File file = new File(filepath+"/"+spinner.getSelectedItem().toString());
         if(!file.exists()){
             file.mkdir();
         }
         Log.i(TAG, "getRecordingFilePath:::: "+file.getAbsolutePath()+"/recording.."+formatter.format(now)+".3gp");
-        return file.getAbsolutePath()+"/recording.."+formatter+".3gp";
+        return file.getAbsolutePath()+"/recording.."+formatter.format(now)+".3gp";
     }
 //    Adding animation to button
     public void aniamte(){
@@ -354,9 +358,9 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
     public void linkToCategory(View v) {
         Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(activity_recording.this, category.class);
+        Intent intent = new Intent(this, category.class);
         startActivity(intent);
-//          loadCategory(new MyCompleteListener() {
+//          DbQuery.loadCategory(new MyCompleteListener() {
 //              @Override
 //              public void onSuccess() {
 //

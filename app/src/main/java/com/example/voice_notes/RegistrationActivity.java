@@ -24,6 +24,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     EditText etRegEmail;
     EditText etRegPassword;
+    EditText etRegName;
     EditText etRegConfPass;
     ImageButton btnRegister;
     Button reLogin;
@@ -39,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         etRegEmail = findViewById(R.id.editTextTextEmailAddress2);
         etRegPassword = findViewById(R.id.editTextTextPassword2);
+        etRegName = findViewById(R.id.editTextTextPersonName);
         etRegConfPass = findViewById(R.id.editTextTextPassword3);
         btnRegister = findViewById(R.id.imageButton2);
         reLogin = findViewById(R.id.Button2);
@@ -57,6 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void createUser(){
         String email = etRegEmail.getText().toString() ;
         String password = etRegPassword.getText().toString();
+        String Name = etRegName.getText().toString();
         String confpass = etRegConfPass.getText().toString();
 
         if(TextUtils.isEmpty(email)){
@@ -84,7 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (task.isSuccessful()){
                         Toast.makeText(RegistrationActivity.this, "user registered successfully", Toast.LENGTH_SHORT).show();
 
-                        DbQuery.createUserdata(email, new MyCompleteListener() {
+                        DbQuery.createUserdata(Name,email, new MyCompleteListener() {
                             @Override
                             public void onSuccess() {
                                 startActivity(new Intent(RegistrationActivity.this,MainActivity.class));

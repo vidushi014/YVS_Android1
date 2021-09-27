@@ -18,10 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voice_notes">
         <activity
-            android:name=".list" />
+            android:name=".listofcategory"
+            android:exported="true" />
+        <activity android:name=".splashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".category"></activity>
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".list" />
+        <activity android:name=".category" />
         <activity
             android:name=".ListOfAudo"
             android:exported="true" />
@@ -31,13 +38,7 @@
             android:exported="true"
             android:label="Registration"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

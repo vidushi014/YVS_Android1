@@ -24,9 +24,10 @@ public class DbQuery {
     public static FirebaseFirestore gFireStore;
 //    public static List<CategoryModel> gCatList = new ArrayList<>();
 
-    public static void createUserdata(String email,MyCompleteListener completeListener){
+    public static void createUserdata(String name ,String email,MyCompleteListener completeListener){
 
         Map<String, Object> userData = new ArrayMap<>();
+        userData.put("Name",name);
         userData.put("Email_ID",email);
 
         DocumentReference userDoc = gFireStore.collection("USERS").document(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -57,7 +58,7 @@ public class DbQuery {
                 });
     }
 
-//
+
 //    public static void loadCategory(MyCompleteListener completeListener){
 //
 //        gCatList.clear();
@@ -82,15 +83,15 @@ public class DbQuery {
 //
 //                            String catID = CatListDoc.getString("Cat" + String.valueOf(i) +"_ID");
 //
-//                            Log.i("hemloo",catID);
+////                            Log.i("hemloo",catID);
 //
 //                            QueryDocumentSnapshot catDoc = docList.get(catID);
 //
-//
-//                            if(catDoc==null){
-//                                Log.i("nahi hua","kya karein");
-//                            }
-//
+////
+////                            if(CatListDoc==null){
+////                                Log.i("nahi hua","kya karein");
+////                            }
+////
 //
 //
 //                            int noOfTest= catDoc.getLong("recordings").intValue();

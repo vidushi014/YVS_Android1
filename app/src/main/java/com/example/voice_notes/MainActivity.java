@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (task.getResult().getAdditionalUserInfo().isNewUser())
                             {
-                                DbQuery.createUserdata(user.getEmail(), new MyCompleteListener() {
+                                DbQuery.createUserdata(user.getDisplayName(),user.getEmail(), new MyCompleteListener() {
                                     @Override
                                     public void onSuccess() {
                                         startActivity(new Intent(MainActivity.this, activity_recording.class));
