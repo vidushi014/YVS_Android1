@@ -46,6 +46,7 @@ public class Community extends AppCompatActivity {
     FirebaseUser currentUser;
     private Uri pickedAudUri = null;
     File filePath = null;
+    int Like = 0;
 
 
 
@@ -112,7 +113,7 @@ public class Community extends AppCompatActivity {
                                     post Post = new post(popupTitle.getText().toString(),
                                             popupDescription.getText().toString(),
                                             audiDownloadLink,
-                                            currentUser.getUid());
+                                            currentUser.getUid(),Like);
 
                                     // add post to firebase database
 

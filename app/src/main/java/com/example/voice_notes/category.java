@@ -3,9 +3,11 @@ package com.example.voice_notes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ public class category extends AppCompatActivity {
 //    our list variable to get list from firebase using our 2 self created java classes i.e categoryModel and categoryAdaptor
     private List<CategoryModel> catList = new ArrayList<>();
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +49,7 @@ public class category extends AppCompatActivity {
 
         catView = findViewById(R.id.cat_Grid);
         logoutB = findViewById(R.id.LogOut);
+        logoutB.setBackgroundColor(R.color.pink);
 
         loadCategory();
         CategoryAdaptor adapter = new CategoryAdaptor(catList);
