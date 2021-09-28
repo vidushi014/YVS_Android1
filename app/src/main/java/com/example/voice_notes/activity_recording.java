@@ -57,6 +57,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -329,6 +331,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
             String filepath = Environment.getExternalStorageDirectory().getPath();
             File file = new File(filepath+"/Shared");
             File files[]=file.listFiles();
+
             uploadAudio(files[files.length-1]);
             Log.i("Shared",spinner.getSelectedItem().toString());
         }

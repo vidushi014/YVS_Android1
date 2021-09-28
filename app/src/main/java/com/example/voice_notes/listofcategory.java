@@ -23,6 +23,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class listofcategory extends AppCompatActivity {
 
@@ -64,6 +66,20 @@ public class listofcategory extends AppCompatActivity {
         }
         getfiles(filepath);
 
+        Collections.sort(all_files, new Comparator<File>() {
+
+            @Override
+            public int compare(File file1, File file2) {
+                long k = file1.lastModified() - file2.lastModified();
+                if(k < 0){
+                    return 1;
+                }else if(k == 0){
+                    return 0;
+                }else{
+                    return -1;
+                }
+            }
+        });
         customadapter myadapter= new customadapter(this, 0,all_files);
         listView.setAdapter(myadapter);
 
