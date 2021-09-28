@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,17 +20,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostPage extends AppCompatActivity {
 
 
-    ListView postRecyclerView;
+    ListView postView;
     postAdapter PostAdapter;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     List<post> postList = new ArrayList<>();
+    Boolean isplaying = false;
+    int place;
+
+
 //    private Context mContext;
 //
 //    private PostPage(Context mContext){
@@ -41,13 +47,10 @@ public class PostPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_page);
 
-        postRecyclerView = findViewById(R.id.comView);
+        postView = findViewById(R.id.comView);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("posts");
-
-//
-//        postAdapter adapter = new postAdapter(postList);
-//        postRecyclerView.setAdapter(adapter);
+        place = -1;
 
 
     }
@@ -67,12 +70,37 @@ public class PostPage extends AppCompatActivity {
                     postList.add(Post);
                 }
                 PostAdapter = new postAdapter(getApplicationContext(),postList);
-                postRecyclerView.setAdapter(PostAdapter);
+                postView.setAdapter(PostAdapter);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        postView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                place=i;
+                if(isplaying){
+                    stopaudio(i);
+                    try {
+                        startaudio(allfiles.get(i),i);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        startaudio(allfiles.get(i),i);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
             }
         });

@@ -20,6 +20,7 @@ public class postAdapter extends BaseAdapter {
 
     List<post> mData;
     Context context;
+    String Audio;
 
     public postAdapter(Context context,List<post> mData) {
         this.mData = mData;
@@ -59,12 +60,12 @@ public class postAdapter extends BaseAdapter {
         TextView tvTitle = myView.findViewById(R.id.postTitle);
         TextView tvDescription = myView.findViewById(R.id.postDescription);
         TextView tvUserName = myView.findViewById(R.id.userName);
-//        ImageView audioPost = myView.findViewById(R.id.PostIcon);
+
 
         tvTitle.setText((CharSequence) mData.get(position).getTitle());
         tvDescription.setText((CharSequence) mData.get(position).getDescription());
         tvUserName.setText((CharSequence) mData.get(position).getUserName());
-//        Glide.with(context).load(mData.get(position).getAudio()).into(audioPost);
+        Audio = mData.get(position).getAudio();
 
 
         return myView;
