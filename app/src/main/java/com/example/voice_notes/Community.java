@@ -27,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -47,6 +50,8 @@ public class Community extends AppCompatActivity {
     private Uri pickedAudUri = null;
     File filePath = null;
     int Like = 0;
+    private FirebaseFirestore gFireStore;
+    String name = null;
 
 
 
@@ -60,6 +65,17 @@ public class Community extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
         currentUser= mAuth.getCurrentUser();
+        gFireStore = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = gFireStore.collection("USERS").document(currentUser.getUid());
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+              name= documentSnapshot.getString("Name");
+            }
+        });
+
+
 
         //   intent input
 
@@ -71,6 +87,9 @@ public class Community extends AppCompatActivity {
         filePath = (File) getIntent().getExtras().get("FilePath");
 
         iniPopup(filePath);
+
+
+
 
     }
 
@@ -113,7 +132,7 @@ public class Community extends AppCompatActivity {
                                     post Post = new post(popupTitle.getText().toString(),
                                             popupDescription.getText().toString(),
                                             audiDownloadLink,
-                                            currentUser.getUid(),Like);
+                                            currentUser.getUid(),Like,name);
 
                                     // add post to firebase database
 

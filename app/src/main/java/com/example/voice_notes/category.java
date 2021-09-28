@@ -34,6 +34,7 @@ public class category extends AppCompatActivity {
 
 //    our logout variable
     Button logoutB;
+    Button CommunityB;
 
 //   our grid variable
     private GridView catView;
@@ -80,6 +81,11 @@ public class category extends AppCompatActivity {
             startActivity(new Intent(category.this , MainActivity.class));
         });
 
+
+    }
+    public void linktoCommunity(View view) {
+        Intent intent = new Intent(this, PostPage.class);
+        startActivity(intent);
     }
 
     private void loadCategory(){

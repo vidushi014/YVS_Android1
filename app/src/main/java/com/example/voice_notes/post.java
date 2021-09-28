@@ -13,15 +13,17 @@ public class post {
     private String userId;
     private Object timeStamp;
     private int like = 0;
+    private String userName;
 
 
-    public post(String title, String description, String audio, String userId,int like) {
+    public post(String title, String description, String audio, String userId,int like,String userName) {
         this.title = title;
         this.description = description;
         this.audio = audio;
         this.userId = userId;
         this.timeStamp = ServerValue.TIMESTAMP;
         this.like = like;
+        this.userName = userName;
     }
 
 
@@ -64,5 +66,13 @@ public class post {
 
     public void setLike(int like) {
         this.like = like;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
