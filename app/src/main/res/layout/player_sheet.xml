@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/ps_imageView10"
         android:layout_width="74dp"
         android:layout_height="68dp"
         android:padding="16dp"
@@ -87,7 +87,7 @@
         app:srcCompat="@drawable/play1" />
 
     <ImageView
-        android:id="@+id/imageView12"
+        android:id="@+id/ps_imageView12"
         android:layout_width="74dp"
         android:layout_height="68dp"
         android:padding="16dp"

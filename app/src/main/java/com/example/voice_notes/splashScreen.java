@@ -15,7 +15,7 @@ import com.scwang.wave.MultiWaveHeader;
 
 public class splashScreen extends AppCompatActivity {
 
-    private static int SPLASH_SCREEN = 5000;
+    private static int SPLASH_SCREEN = 1500;
 
     Animation topAnim , downAnim;
     TextView logo , slogan;

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -40,9 +41,13 @@ public class list extends AppCompatActivity  {
     private SeekBar seekbar;
     private Handler handler;
     private Runnable updateseekbar;
+    private ImageView play_left;
+    private ImageView play_right;
     private int place;
+
     ArrayList<String> items= new ArrayList<>();
     ArrayList<File> allfiles= new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,9 @@ public class list extends AppCompatActivity  {
         ps_filename= findViewById(R.id.ps_filename);
         play_btn= findViewById(R.id.ps_play_btn);
         seekbar= findViewById(R.id.ps_seekbar);
+        play_left = findViewById(R.id.ps_imageView10);
+        play_right = findViewById(R.id.ps_imageView12);
+
 
         File filepath= new File(Environment.getExternalStorageDirectory().getPath()+"/voicenotes");
         listview=findViewById(R.id.list);
@@ -174,7 +182,9 @@ public class list extends AppCompatActivity  {
                     }
                 }
             }
+
         });
+
         // FOR LONG PRESSS
 
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
