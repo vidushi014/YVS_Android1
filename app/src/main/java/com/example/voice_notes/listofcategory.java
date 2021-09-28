@@ -64,7 +64,7 @@ public class listofcategory extends AppCompatActivity {
         }
         getfiles(filepath);
 
-        customadapter myadapter= new customadapter(this, 0,items);
+        customadapter myadapter= new customadapter(this, 0,all_files);
         listView.setAdapter(myadapter);
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

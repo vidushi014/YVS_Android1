@@ -14,12 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class customadapter extends ArrayAdapter<String> {
-    private ArrayList<String> items=new ArrayList<>();
+public class customadapter extends ArrayAdapter<File> {
+    private ArrayList<File> items=new ArrayList<>();
     private Context mcontext;
-    public customadapter(@NonNull Context context, int resource, ArrayList<String> items) {
+    public customadapter(@NonNull Context context, int resource, ArrayList<File> items) {
         super(context, resource, items);
         this.items = items;
         this.mcontext=context;
@@ -34,8 +35,8 @@ public class customadapter extends ArrayAdapter<String> {
         TextView textView2= convertView.findViewById(R.id.textView2);
         TextView textView3= convertView.findViewById(R.id.textView2);
         ImageButton imageButton=convertView.findViewById(R.id.menuMore);
-        textView2.setText(items.get(position));
-        textView2.setText(items.get(position));
+        textView2.setText(items.get(position).getName());
+        textView2.setText(items.get(position).getName());
         textView2.setSelected(true);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
