@@ -32,7 +32,6 @@
         android:background="@drawable/popup_edittext"
         android:ems="10"
         android:hint="Description"
-        android:inputType="textPersonName"
         android:textColorHint="#8E8D8D"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName2"
         app:layout_constraintHorizontal_bias="0.495"

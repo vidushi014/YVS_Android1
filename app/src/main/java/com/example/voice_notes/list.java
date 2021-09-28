@@ -20,13 +20,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.load.model.Model;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class list extends AppCompatActivity  {
 
@@ -44,6 +48,7 @@ public class list extends AppCompatActivity  {
     private ImageView play_left;
     private ImageView play_right;
     private int place;
+    Model temp;
 
     ArrayList<String> items= new ArrayList<>();
     ArrayList<File> allfiles= new ArrayList<>();
@@ -61,12 +66,27 @@ public class list extends AppCompatActivity  {
         seekbar= findViewById(R.id.ps_seekbar);
         play_left = findViewById(R.id.ps_imageView10);
         play_right = findViewById(R.id.ps_imageView12);
+        View delete = findViewById(R.id.item2);
 
 
         File filepath= new File(Environment.getExternalStorageDirectory().getPath()+"/voicenotes");
         listview=findViewById(R.id.list);
 
         traverser(filepath);
+        Collections.sort(allfiles, new Comparator<File>() {
+
+            @Override
+            public int compare(File file1, File file2) {
+                long k = file1.lastModified() - file2.lastModified();
+                if(k < 0){
+                    return 1;
+                }else if(k == 0){
+                    return 0;
+                }else{
+                    return -1;
+                }
+            }
+        });
 //        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,items);
         customadapter myadapter = new customadapter(getApplicationContext(),0,allfiles);
         listview.setAdapter(myadapter);
@@ -104,7 +124,6 @@ public class list extends AppCompatActivity  {
 
             private void startaudio(File file,int position) throws IOException {
                 isplaying=true;
-
                 bottomSheetBehavior.setState(bottomSheetBehavior.STATE_EXPANDED);
                 mediaplayer= new MediaPlayer();
                 try {
@@ -179,6 +198,8 @@ public class list extends AppCompatActivity  {
                         isplaying = true;
                         updaterunnable();
                         handler.postDelayed(updateseekbar,0);
+                    }else{
+                        Toast.makeText(list.this, "Choose a file to play", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -187,6 +208,8 @@ public class list extends AppCompatActivity  {
 
         // FOR LONG PRESSS
 
+
+
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
 
 
@@ -194,9 +217,11 @@ public class list extends AppCompatActivity  {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 removeItemFromList(i);
 //                items.remove(i);
+
                 return true;
             }
             // method to remove list item
+
             protected void removeItemFromList(int position) {
                 final int deletePosition = position;
 
@@ -213,6 +238,7 @@ public class list extends AppCompatActivity  {
                         // main code on after clicking yes
                         items.remove(deletePosition-1);
                         myadapter.notifyDataSetChanged();
+
 //                        myadapter.notifyDataSetInvalidated();
 
                     }
@@ -311,7 +337,4 @@ public class list extends AppCompatActivity  {
         }
     }
 /// code for media player
-
-
-
 }

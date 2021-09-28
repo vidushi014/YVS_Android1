@@ -25,6 +25,9 @@ import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,6 +56,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -61,10 +65,12 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
     private ImageButton mRecordBtn;
     private ImageButton mstopbtn;
-    private TextView mRecordLable;
+    private TextView mRecordLable,edttxt;
     private MediaRecorder recorder;
     private String filename=null;
     private Chronometer timer;
+    SpeechRecognizer mSpeechRecogniser;
+    Intent mSpeechRecogniserIntent;
     private static final String LOG_TAG="Record_log";
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
@@ -114,7 +120,63 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         mRecordBtn=findViewById(R.id.recordBtn);
         mstopbtn=findViewById(R.id.imageButton1);
         timer=findViewById(R.id.recordtimer);
+        edttxt=findViewById(R.id.textView6);
 
+        mSpeechRecogniser=SpeechRecognizer.createSpeechRecognizer(this);
+        mSpeechRecogniserIntent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        mSpeechRecogniserIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecogniserIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Locale.getDefault());
+        mSpeechRecogniser.setRecognitionListener(new RecognitionListener() {
+
+            @Override
+            public void onReadyForSpeech(Bundle params) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float rmsdB) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] buffer) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int error) {
+
+            }
+
+            @Override
+            public void onResults(Bundle results) {
+                ArrayList<String> matches=results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+                if (matches!=null){
+                    edttxt.setText(matches.get(0));
+                }
+
+            }
+
+            @Override
+            public void onPartialResults(Bundle partialResults) {
+
+            }
+
+            @Override
+            public void onEvent(int eventType, Bundle params) {
+
+            }
+        });
 
         if (isMicrophonePresent()){
             getMicrophonePermission();
@@ -143,6 +205,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
                     Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
                     mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
                     mRecordLable.setText("Recording Stopped");
+                    mSpeechRecogniser.stopListening();
                     isRecording=false;
                 }else{
                     startRecording();
@@ -150,6 +213,8 @@ public class activity_recording extends AppCompatActivity implements AdapterView
                     aniamte();
                     mRecordLable.setText("Recording Started");
                     Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
+                    edttxt.setText("");
+                    mSpeechRecogniser.startListening(mSpeechRecogniserIntent);
                     isRecording=true;
                 }
             }

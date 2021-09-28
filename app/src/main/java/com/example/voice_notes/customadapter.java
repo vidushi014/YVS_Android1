@@ -1,7 +1,14 @@
 package com.example.voice_notes;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +21,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+
+import com.bumptech.glide.load.model.Model;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +32,7 @@ public class customadapter extends ArrayAdapter<File> {
     private ArrayList<File> items=new ArrayList<>();
     private Context mcontext;
     private TimeAgo timeAgo;
+    Model temp;
     public customadapter(@NonNull Context context, int resource, ArrayList<File> items) {
         super(context, resource, items);
         this.items = items;
@@ -44,6 +55,8 @@ public class customadapter extends ArrayAdapter<File> {
 //        String a= items.get(position);
 
         textView3.setText(timeAgo.getTimeAgo(items.get(position).lastModified()));
+        View finalConvertView = convertView;
+        View finalConvertView1 = convertView;
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,14 +72,23 @@ public class customadapter extends ArrayAdapter<File> {
                                 intent.putExtra("FilePath",items.get(position));
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 mcontext.startActivity(intent);
-
                                 Toast.makeText(mcontext, "item1 clicked", Toast.LENGTH_SHORT).show();
-
-
                                 break;
                             case R.id.item2:
                                 Toast.makeText(mcontext, "item2 clicked", Toast.LENGTH_SHORT).show();
+
                                 break;
+                            case R.id.share:
+                                File filepath= new File(Environment.getExternalStorageDirectory().getPath()+"/voicenotes");
+//                                String sharePath = items.get(position).getPath();
+                                Uri uri = Uri.parse(String.valueOf(items.get(position)));
+                                Intent share = new Intent(Intent.ACTION_SEND);
+                                share.putExtra(Intent.EXTRA_STREAM, uri);
+                                share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                share.setType("audio/*");
+//                                Log.i(TAG, "onMenuItemClick: "+sharePath);
+                               mcontext.startActivity(Intent.createChooser(share, "Share Sound File"));
                         }
                         return true;
                     }
@@ -75,4 +97,5 @@ public class customadapter extends ArrayAdapter<File> {
         });
         return convertView;
     }
+
 }
