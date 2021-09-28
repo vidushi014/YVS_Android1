@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Voice_notes">
-        <activity android:name=".Community"></activity>
+        <activity android:name=".PostPage"></activity>
+        <activity android:name=".Community" />
         <activity
             android:name=".listofcategory"
             android:exported="true" />
