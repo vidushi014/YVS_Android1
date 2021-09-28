@@ -13,7 +13,6 @@
         android:id="@+id/menuMore"
         android:layout_width="93dp"
         android:layout_height="55dp"
-
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"

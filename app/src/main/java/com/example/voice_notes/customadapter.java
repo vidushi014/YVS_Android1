@@ -14,12 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class customadapter extends ArrayAdapter<String> {
-    private ArrayList<String> items=new ArrayList<>();
+public class customadapter extends ArrayAdapter<File> {
+    private ArrayList<File> items=new ArrayList<>();
     private Context mcontext;
-    public customadapter(@NonNull Context context, int resource, ArrayList<String> items) {
+    private TimeAgo timeAgo;
+    public customadapter(@NonNull Context context, int resource, ArrayList<File> items) {
         super(context, resource, items);
         this.items = items;
         this.mcontext=context;
@@ -32,11 +34,15 @@ public class customadapter extends ArrayAdapter<String> {
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.list_item,parent,false);
         }
         TextView textView2= convertView.findViewById(R.id.textView2);
-        TextView textView3= convertView.findViewById(R.id.textView2);
+        TextView textView3= convertView.findViewById(R.id.textView3);
         ImageButton imageButton=convertView.findViewById(R.id.menuMore);
-        textView2.setText(items.get(position));
-        textView2.setText(items.get(position));
+        textView2.setText(items.get(position).getName());
+//        textView2.setText(items.get(position));
         textView2.setSelected(true);
+        timeAgo=new TimeAgo();
+//        String a= items.get(position);
+
+        textView3.setText(timeAgo.getTimeAgo(items.get(position).lastModified()));
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,8 +55,10 @@ public class customadapter extends ArrayAdapter<String> {
                         switch (menuItem.getItemId()){
                             case R.id.item1:
                                 Toast.makeText(mcontext, "item1 clicked", Toast.LENGTH_SHORT).show();
+                                break;
                             case R.id.item2:
                                 Toast.makeText(mcontext, "item2 clicked", Toast.LENGTH_SHORT).show();
+                                break;
                         }
                         return true;
                     }
