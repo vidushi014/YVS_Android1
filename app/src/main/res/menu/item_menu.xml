@@ -10,4 +10,8 @@
         android:id="@+id/item2"
         android:title="Delete"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/share"
+        android:title="Share"
+        app:showAsAction="never" />
 </menu>
