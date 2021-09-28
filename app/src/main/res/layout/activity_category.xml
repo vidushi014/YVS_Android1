@@ -23,7 +23,7 @@
         android:id="@+id/LogOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:background="#DD2C73"
         android:backgroundTint="#E82473"
         android:text="Logout"
@@ -35,18 +35,16 @@
     <GridView
         android:id="@+id/cat_Grid"
         android:layout_width="388dp"
-        android:layout_height="529dp"
+        android:layout_height="599dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:numColumns="2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
     </GridView>
 
