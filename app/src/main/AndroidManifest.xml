@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Voice_notes">
+        <activity android:name=".Community"></activity>
         <activity
             android:name=".listofcategory"
             android:exported="true" />
@@ -38,7 +39,7 @@
             android:exported="true"
             android:label="Registration"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

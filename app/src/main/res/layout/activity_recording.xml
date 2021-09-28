@@ -36,24 +36,26 @@
 
 
         android:id="@+id/imageButton1"
-        android:layout_width="62dp"
-        android:layout_height="71dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="15dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:onClick="linkToCategory"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/recordBtn"
         app:layout_constraintEnd_toStartOf="@+id/recordBtn"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/recordBtn"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_folder"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="62dp"
-        android:layout_height="71dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="30dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:onClick="linktolist"
@@ -67,8 +69,8 @@
 
     <ImageButton
         android:id="@+id/recordBtn"
-        android:layout_width="80dp"
-        android:layout_height="64dp"
+        android:layout_width="100dp"
+        android:layout_height="84dp"
         android:adjustViewBounds="true"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"

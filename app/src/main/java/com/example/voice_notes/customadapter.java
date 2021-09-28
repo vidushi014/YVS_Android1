@@ -1,6 +1,7 @@
 package com.example.voice_notes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,7 +55,14 @@ public class customadapter extends ArrayAdapter<File> {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.item1:
+                                Intent intent = new Intent(mcontext,Community.class);
+                                intent.putExtra("FilePath",items.get(position));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mcontext.startActivity(intent);
+
                                 Toast.makeText(mcontext, "item1 clicked", Toast.LENGTH_SHORT).show();
+
+
                                 break;
                             case R.id.item2:
                                 Toast.makeText(mcontext, "item2 clicked", Toast.LENGTH_SHORT).show();
