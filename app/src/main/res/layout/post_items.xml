@@ -12,29 +12,29 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@color/white"
         android:translationZ="3dp"
-        app:cardBackgroundColor="#DFE0E8"
+        app:cardBackgroundColor="#80000000"
         app:cardCornerRadius="8dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="180dp">
 
             <ImageView
                 android:id="@+id/PostIcon"
-                android:layout_width="105dp"
-                android:layout_height="67dp"
+                android:layout_width="142dp"
+                android:layout_height="137dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/mainlogo"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/bgg"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,43 +42,42 @@
                 android:id="@+id/postTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="24dp"
                 android:text="Maths Notes"
-                android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.371"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="31dp"
-                android:layout_marginEnd="192dp"
+                android:layout_width="51dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:text="Title :"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.168" />
+                app:layout_constraintHorizontal_bias="0.557"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:text="Notes By :"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/userName"
                 app:layout_constraintEnd_toEndOf="@+id/textView9"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/textView9"
                 app:layout_constraintTop_toBottomOf="@+id/textView9"
                 app:layout_constraintVertical_bias="1.0" />
@@ -89,36 +88,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Vidushi Singh"
-                android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/postTitle"
+                app:layout_constraintHorizontal_bias="0.641"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/postTitle" />
 
             <TextView
-                android:layout_width="121dp"
-                android:layout_height="37dp"
-                android:layout_marginTop="8dp"
-                android:text="Notes Discription :"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.032"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PostIcon" />
-
-            <TextView
                 android:id="@+id/postDescription"
-                android:layout_width="229dp"
-                android:layout_height="22dp"
-                android:layout_marginBottom="28dp"
+                android:layout_width="194dp"
+                android:layout_height="63dp"
                 android:text="voice notes for today's maths lecture"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintHorizontal_bias="0.894"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="45dp"
+                android:layout_height="43dp"
+                app:layout_constraintBottom_toBottomOf="@+id/PostIcon"
+                app:layout_constraintEnd_toEndOf="@+id/PostIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/PostIcon"
+                app:srcCompat="@drawable/play" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Notes Discription"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/postDescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.765"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
