@@ -1,9 +1,14 @@
 package com.example.voice_notes;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -29,6 +34,8 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,11 +47,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,7 +71,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
-public class activity_recording extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class activity_recording extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth mAuth;
 
     private ImageButton mRecordBtn;
@@ -81,6 +90,9 @@ public class activity_recording extends AppCompatActivity implements AdapterView
     private static final String TAG = "Activity record";
     private MediaPlayer mediaplayer;
     private Spinner spinner;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
 //    for firebase storage
 
@@ -123,12 +135,25 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         mstopbtn=findViewById(R.id.imageButton1);
         timer=findViewById(R.id.recordtimer);
         edttxt=findViewById(R.id.textView6);
+        toolbar=findViewById(R.id.toolbar);
+
+
+        drawerLayout=findViewById(R.id.nav);
+        navigationView=findViewById(R.id.navView);
+        setSupportActionBar(toolbar);
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_open,R.string.navigation_Close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         mSpeechRecogniser=SpeechRecognizer.createSpeechRecognizer(this);
         mSpeechRecogniserIntent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         mSpeechRecogniserIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecogniserIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Locale.getDefault());
         mSpeechRecogniser.setRecognitionListener(new RecognitionListener() {
+
 
             @Override
             public void onReadyForSpeech(Bundle params) {
@@ -481,5 +506,39 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 //        File musicDirectory =contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
 //        return musicDirectory;
 //    }
+
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+         drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.home:
+                Intent intent=new Intent(this,activity_recording.class);
+                startActivity(intent);
+                break;
+            case R.id.comunity:
+                Intent intent1=new Intent(activity_recording.this, PostPage.class);
+                startActivity(intent1);
+                break;
+            case R.id.folder:
+                Intent intent2=new Intent(activity_recording.this, category.class);
+                startActivity(intent2);
+                break;
+            case R.id.log:
+                
+                break;
+
+        }
+        return true;
+    }
 }
 
