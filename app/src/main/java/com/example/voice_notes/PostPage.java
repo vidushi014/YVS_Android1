@@ -2,6 +2,7 @@ package com.example.voice_notes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.firebase.database.DataSnapshot;
@@ -43,6 +45,7 @@ public class PostPage extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     private TextView ps_info ;
+    private ConstraintLayout playersheet;
     private TextView ps_filename ;
     private ImageView play_btn ;
     private SeekBar seekbar;
@@ -74,6 +77,12 @@ public class PostPage extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("posts");
         place = -1;
+        ps_info= findViewById(R.id.ps_info);
+        ps_filename= findViewById(R.id.ps_filename);
+        play_btn= findViewById(R.id.ps_play_btn);
+        seekbar= findViewById(R.id.ps_seekbar);
+        play_left = findViewById(R.id.ps_imageView10);
+        play_right = findViewById(R.id.ps_imageView12);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -113,17 +122,17 @@ public class PostPage extends AppCompatActivity {
                         isplaying=false;
                         mediaplayer.stop();
                         mediaplayer.release();
-//                        play_btn.setImageDrawable(getResources().getDrawable(R.drawable.play,null));
-//                        ps_filename.setText(PostAdapter.mData.get(position).getTitle());
-//                        ps_info.setText("Stopped");
-//                        handler.removeCallbacks(updateseekbar);
+                        play_btn.setImageDrawable(getResources().getDrawable(R.drawable.play,null));
+                        ps_filename.setText(PostAdapter.mData.get(position).getTitle());
+                        ps_info.setText("Stopped");
+                        handler.removeCallbacks(updateseekbar);
                     }
 
                     private void startaudio(int i) throws IOException {
 
 
                         isplaying=true;
-//                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         mediaplayer= new MediaPlayer();
                         try {
                             Log.i("test",postList.get(i).getAudio());
@@ -134,24 +143,53 @@ public class PostPage extends AppCompatActivity {
                         } catch (IOException e){
                             e.printStackTrace();
                         }
-//                        play_btn.setImageDrawable(getResources().getDrawable(R.drawable.pause,null));
-//                        ps_filename.setText(PostAdapter.mData.get(position).getTitle());
-//                        ps_info.setText("playing");
+                        play_btn.setImageDrawable(getResources().getDrawable(R.drawable.pause,null));
+                        ps_filename.setText(PostAdapter.mData.get(position).getTitle());
+                        ps_info.setText("playing");
 
-//                        mediaplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                            @Override
-//                            public void onCompletion(MediaPlayer mediaPlayer) {
-//                                ps_info.setText("finished");
-//                                play_btn.setImageDrawable(getResources().getDrawable(R.drawable.play,null));
-//                            }
-//                        });
+                        mediaplayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mediaPlayer) {
+                                ps_info.setText("finished");
+                                play_btn.setImageDrawable(getResources().getDrawable(R.drawable.play,null));
+                                isplaying=false;
+                            }
+                        });
 
-//                seekbar.setMax(mediaplayer.getDuration());
-//                handler = new Handler();
-//                updaterunnable();
-//                handler.postDelayed(updateseekbar,0);
+                        seekbar.setMax(mediaplayer.getDuration());
+                        handler = new Handler();
+                        updaterunnable();
+                        handler.postDelayed(updateseekbar,0);
                     }
                 });
+                seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                        mediaplayer.pause();
+                        play_btn.setImageDrawable(getResources().getDrawable(R.drawable.play,null));
+                        isplaying=false;
+                        handler.removeCallbacks(updateseekbar);
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                        if(place!=-1) {
+                            int progress= seekBar.getProgress();
+                            mediaplayer.seekTo(progress);
+                            mediaplayer.start();
+                            play_btn.setImageDrawable(getResources().getDrawable(R.drawable.pause, null));
+                            isplaying = true;
+                            updaterunnable();
+                            handler.postDelayed(updateseekbar,0);
+                        }
+                    }
+                });
+
             }
 
             @Override
@@ -159,7 +197,56 @@ public class PostPage extends AppCompatActivity {
 
             }
         });
+        playersheet=findViewById(R.id.playersheet);
+        bottomSheetBehavior=BottomSheetBehavior.from(playersheet);
 
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if(newState==BottomSheetBehavior.STATE_HIDDEN){
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+        play_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isplaying){
+                    mediaplayer.pause();
+                    play_btn.setImageDrawable(getResources().getDrawable(R.drawable.play,null));
+                    isplaying=false;
+                    handler.removeCallbacks(updateseekbar);
+                }
+                else{
+                    if(place!=-1) {
+                        mediaplayer.start();
+                        play_btn.setImageDrawable(getResources().getDrawable(R.drawable.pause, null));
+                        isplaying = true;
+                        updaterunnable();
+                        handler.postDelayed(updateseekbar,0);
+                    }else{
+                        Toast.makeText(PostPage.this, "Choose a file to play", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+        });
+
+    }
+    private void updaterunnable(){
+        updateseekbar= new Runnable() {
+            @Override
+            public void run() {
+                seekbar.setProgress(mediaplayer.getCurrentPosition());
+                handler.postDelayed(this,50);
+            }
+        };
     }
 
 //    @Override
