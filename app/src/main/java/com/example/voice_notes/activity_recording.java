@@ -534,7 +534,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
                 startActivity(intent2);
                 break;
             case R.id.log:
-                
+
                 break;
 
         }
