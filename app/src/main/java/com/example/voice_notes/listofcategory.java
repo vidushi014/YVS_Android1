@@ -42,6 +42,7 @@ public class listofcategory extends AppCompatActivity {
     private Handler handler;
     private Runnable updateseekbar;
     private int place;
+    private customadapter myadapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,7 @@ public class listofcategory extends AppCompatActivity {
                 }
             }
         });
-        customadapter myadapter= new customadapter(this, 0,all_files);
+        myadapter= new customadapter(this, 0,all_files);
         listView.setAdapter(myadapter);
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -236,6 +237,13 @@ public class listofcategory extends AppCompatActivity {
         };
     }
 
+    public void  update(int position){
+        if(all_files.size()!=0){
+            all_files.remove(position);
+            myadapter.notifyDataSetChanged();
+            listView.setAdapter(myadapter);
+        }
+    }
     public void getfiles(File file) {
         File files[] = file.listFiles();
 

@@ -48,13 +48,14 @@ public class list extends AppCompatActivity  {
     private ImageView play_left;
     private ImageView play_right;
     private int place;
+    private customadapter myadapter;
     Model temp;
 
     ArrayList<String> items= new ArrayList<>();
     ArrayList<File> allfiles= new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_ui);
 
@@ -88,7 +89,7 @@ public class list extends AppCompatActivity  {
             }
         });
 //        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,items);
-        customadapter myadapter = new customadapter(this,0,allfiles);
+        myadapter = new customadapter(this,0,allfiles);
         listview.setAdapter(myadapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -206,54 +207,6 @@ public class list extends AppCompatActivity  {
 
         });
 
-        // FOR LONG PRESSS
-
-
-
-        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
-
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                removeItemFromList(i);
-//                items.remove(i);
-
-                return true;
-            }
-            // method to remove list item
-
-            protected void removeItemFromList(int position) {
-                final int deletePosition = position;
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(
-                        list.this);
-
-                alert.setTitle("Delete");
-                alert.setMessage("Do you want delete this item?");
-                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TOD O Auto-generated method stub
-
-                        // main code on after clicking yes
-                        items.remove(deletePosition-1);
-                        myadapter.notifyDataSetChanged();
-
-//                        myadapter.notifyDataSetInvalidated();
-
-                    }
-                });
-                alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
-                        dialog.dismiss();
-                    }
-                });
-                alert.show();
-            }
-        });
-
         playersheet=findViewById(R.id.playersheet);
         bottomSheetBehavior=BottomSheetBehavior.from(playersheet);
 
@@ -279,6 +232,12 @@ public class list extends AppCompatActivity  {
                 handler.postDelayed(this,50);
             }
         };
+    }
+    public void  update(int position){
+        if(allfiles.size()!=0){
+            myadapter.remove(allfiles.get(position));
+            myadapter.notifyDataSetChanged();
+        }
     }
 
 //    public File getfile(String str){
