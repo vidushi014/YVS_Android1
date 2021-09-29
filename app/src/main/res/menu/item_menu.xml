@@ -5,13 +5,22 @@
     <item
         android:id="@+id/item1"
         android:title="Upload"
+        android:icon="@drawable/upload"
         app:showAsAction="never" />
     <item
         android:id="@+id/item2"
         android:title="Delete"
+        android:icon="@drawable/delete"
         app:showAsAction="never" />
     <item
         android:id="@+id/share"
         android:title="Share"
+        android:icon="@drawable/share"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/fav"
+        android:title="Add to fav.."
+        android:icon="@drawable/favorite_24"
+        app:showAsAction="never" />
+
 </menu>

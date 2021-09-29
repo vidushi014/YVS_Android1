@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,7 +35,7 @@ public class category extends AppCompatActivity {
 
 //    our logout variable
     Button logoutB;
-    Button CommunityB;
+    public ProgressBar pgBar;
 
 //   our grid variable
     private GridView catView;
@@ -51,6 +52,7 @@ public class category extends AppCompatActivity {
         catView = findViewById(R.id.cat_Grid);
         logoutB = findViewById(R.id.LogOut);
         logoutB.setBackgroundColor(R.color.pink);
+        pgBar = findViewById(R.id.progressBar2);
 
         loadCategory();
         CategoryAdaptor adapter = new CategoryAdaptor(catList);
@@ -86,6 +88,7 @@ public class category extends AppCompatActivity {
     public void linktoCommunity(View view) {
         Intent intent = new Intent(this, PostPage.class);
         startActivity(intent);
+        pgBar.setVisibility(View.VISIBLE);
     }
 
     private void loadCategory(){
