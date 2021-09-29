@@ -90,12 +90,12 @@ public class category extends AppCompatActivity {
 
     private void loadCategory(){
         catList.clear();
-        catList.add(new CategoryModel("1","favourites",10,R.drawable.devil));
-        catList.add(new CategoryModel("2","ideas",20,R.drawable.idea));
+        catList.add(new CategoryModel("1","Favourites",10,R.drawable.devil));
+        catList.add(new CategoryModel("2","Ideas",20,R.drawable.idea));
         catList.add(new CategoryModel("3","Local",15,R.drawable.candidate));
-        catList.add(new CategoryModel("4","uploaded",10,R.drawable.shared));
+        catList.add(new CategoryModel("4","Work",10,R.drawable.shared));
         catList.add(new CategoryModel("5","Shared",40,R.drawable.smartphone));
-        catList.add(new CategoryModel("6","personal",30,R.drawable.home));
+        catList.add(new CategoryModel("6","Personal",30,R.drawable.home));
     }
 
 }
