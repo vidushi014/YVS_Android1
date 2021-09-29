@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class PostPage extends AppCompatActivity {
     postAdapter PostAdapter;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    public ProgressBar pgBar;
     private TextView ps_info ;
     private ConstraintLayout playersheet;
     private TextView ps_filename ;
@@ -83,6 +85,7 @@ public class PostPage extends AppCompatActivity {
         seekbar= findViewById(R.id.ps_seekbar);
         play_left = findViewById(R.id.ps_imageView10);
         play_right = findViewById(R.id.ps_imageView12);
+        pgBar= findViewById(R.id.progressBar2);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,6 +94,8 @@ public class PostPage extends AppCompatActivity {
                 for (DataSnapshot postsnap:snapshot.getChildren()){
                     post Post = postsnap.getValue(post.class);
                     postList.add(Post);
+                    pgBar.setVisibility(View.INVISIBLE);
+
                 }
                 PostAdapter = new postAdapter(getApplicationContext(),postList);
                 postView.setAdapter(PostAdapter);
