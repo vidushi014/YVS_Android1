@@ -65,13 +65,16 @@ public class postAdapter extends BaseAdapter {
         tvTitle.setText((CharSequence) mData.get(position).getTitle());
         tvDescription.setText((CharSequence) mData.get(position).getDescription());
         tvUserName.setText((CharSequence) mData.get(position).getUserName());
-        Audio = mData.get(position).getAudio();
+//        Audio = mData.get(position).getAudio();
 
 
         return myView;
 
     }
 
+    public String getaudio(){
+        return Audio;
+    }
 //    public class MyViewHolder extends RecyclerView.ViewHolder {
 //
 //        TextView tvTitle;

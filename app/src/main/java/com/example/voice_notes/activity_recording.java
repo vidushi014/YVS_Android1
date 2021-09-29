@@ -137,7 +137,6 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
             @Override
             public void onBeginningOfSpeech() {
-
             }
 
             @Override
@@ -296,22 +295,14 @@ public class activity_recording extends AppCompatActivity implements AdapterView
     private void startRecording() {
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
         recorder.setOutputFile(getRecordingFilePath());
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
         try {
 
          timer.setBase(SystemClock.elapsedRealtime());
          timer.start();
-//         if (file != null) {
-//             recorder = new MediaRecorder();
-//             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-//             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-//             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-//             recorder.setOutputFile(file.getFileDescriptor());
-//             recorder.setAudioChannels(1);
-
             recorder.prepare();
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
@@ -351,7 +342,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         Date now =new Date();
 
 
-        StorageReference filepath = mStorage.child("Audio").child("Recording..."+ formatter.format(now) +".3gp");
+        StorageReference filepath = mStorage.child("Audio").child("Recording..."+ formatter.format(now) +".mp3");
 
         Uri uri = Uri.fromFile(file);
 
@@ -397,8 +388,8 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         if(!file.exists()){
             file.mkdir();
         }
-        Log.i(TAG, "getRecordingFilePath:::: "+file.getAbsolutePath()+"/recording.."+formatter.format(now)+".3gp");
-        return file.getAbsolutePath()+"/recording.."+formatter.format(now)+".3gp";
+        Log.i(TAG, "getRecordingFilePath:::: "+file.getAbsolutePath()+"/recording.."+formatter.format(now)+".mp3");
+        return file.getAbsolutePath()+"/recording.."+formatter.format(now)+".mp3";
     }
 //    Adding animation to button
     public void aniamte(){
