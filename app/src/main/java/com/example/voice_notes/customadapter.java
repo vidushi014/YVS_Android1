@@ -2,6 +2,8 @@ package com.example.voice_notes;
 
 import static android.content.ContentValues.TAG;
 
+//import static androidx.core.content.ContextCompat.startActivity;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -79,16 +81,20 @@ public class customadapter extends ArrayAdapter<File> {
 
                                 break;
                             case R.id.share:
-                                File filepath= new File(Environment.getExternalStorageDirectory().getPath()+"/voicenotes");
+                                Toast.makeText(mcontext, "share ", Toast.LENGTH_SHORT).show();
+                                String filepath= Environment.getExternalStorageDirectory().getPath()+"/voicenotes/Local/recording..2021_09_29_12_30_38.mp3";
 //                                String sharePath = items.get(position).getPath();
-                                Uri uri = Uri.parse(String.valueOf(items.get(position)));
+                                Log.i(TAG, "path: "+ String.valueOf(items.get(position)));
+                                Uri uri = Uri.parse(filepath);
                                 Intent share = new Intent(Intent.ACTION_SEND);
+                                share.setType("audio/mp3");
                                 share.putExtra(Intent.EXTRA_STREAM, uri);
-                                share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                share.setType("audio/*");
-//                                Log.i(TAG, "onMenuItemClick: "+sharePath);
-                               mcontext.startActivity(Intent.createChooser(share, "Share Sound File"));
+
+                                Log.i(TAG, "onMenuItemClick: "+uri.toString());
+//                               startActivity(Intent.createChooser(share, "Share Sound File"));
+                                mcontext.startActivity(Intent.createChooser(share, "Share Sound File"));
                         }
                         return true;
                     }

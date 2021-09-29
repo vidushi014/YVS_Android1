@@ -88,7 +88,7 @@ public class list extends AppCompatActivity  {
             }
         });
 //        ArrayAdapter<String> myadapter= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,items);
-        customadapter myadapter = new customadapter(getApplicationContext(),0,allfiles);
+        customadapter myadapter = new customadapter(this,0,allfiles);
         listview.setAdapter(myadapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
