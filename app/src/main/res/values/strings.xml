@@ -3,7 +3,6 @@
     <string name="navigation_open">Open Navigation</string>
     <string name="navigation_Close">Close Navigation</string>
     <string-array name="location">
-        <item>Choose location to save</item>
         <item>Local</item>
         <item>Shared</item>
         <item>Ideas</item>

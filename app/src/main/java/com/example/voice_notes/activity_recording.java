@@ -52,6 +52,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.AuthResult;
@@ -76,7 +79,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
     private ImageButton mRecordBtn;
     private ImageButton mstopbtn;
-    private TextView mRecordLable,edttxt;
+    private TextView mRecordLable;
     private MediaRecorder recorder;
     private String filename=null;
     private Chronometer timer;
@@ -134,7 +137,6 @@ public class activity_recording extends AppCompatActivity implements AdapterView
         mRecordBtn=findViewById(R.id.recordBtn);
         mstopbtn=findViewById(R.id.imageButton1);
         timer=findViewById(R.id.recordtimer);
-        edttxt=findViewById(R.id.textView6);
         toolbar=findViewById(R.id.toolbar);
 
 
@@ -187,9 +189,9 @@ public class activity_recording extends AppCompatActivity implements AdapterView
             @Override
             public void onResults(Bundle results) {
                 ArrayList<String> matches=results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                if (matches!=null){
-                    edttxt.setText(matches.get(0));
-                }
+//                if (matches!=null){
+//                    edttxt.setText(matches.get(0));
+//                }
 
             }
 
@@ -219,7 +221,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
                 Uri uri=Uri.fromParts("package",this.getPackageName(),null);
                 intent.setData(uri);
                 startActivity(intent);
-                Toast.makeText(this,"nai hua re",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"access denied",Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -228,7 +230,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
             public void onClick(View view) {
                 if(isRecording){
                     stopRecording();
-                    Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(activity_recording.this, "Stopped", Toast.LENGTH_SHORT).show();
                     mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.button));
                     mRecordLable.setText("Recording Stopped");
                     mSpeechRecogniser.stopListening();
@@ -238,8 +240,8 @@ public class activity_recording extends AppCompatActivity implements AdapterView
                     mRecordBtn.setImageDrawable(getResources().getDrawable(R.drawable.mic));
                     aniamte();
                     mRecordLable.setText("Recording Started");
-                    Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
-                    edttxt.setText("");
+//                    Toast.makeText(activity_recording.this, "Started", Toast.LENGTH_SHORT).show();
+//                    edttxt.setText("");
                     mSpeechRecogniser.startListening(mSpeechRecogniserIntent);
                     isRecording=true;
                 }
@@ -441,7 +443,7 @@ public class activity_recording extends AppCompatActivity implements AdapterView
 
 
     public void linkToCategory(View v) {
-        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, category.class);
         startActivity(intent);
 //          DbQuery.loadCategory(new MyCompleteListener() {
@@ -534,7 +536,17 @@ public class activity_recording extends AppCompatActivity implements AdapterView
                 startActivity(intent2);
                 break;
             case R.id.log:
+                mAuth.signOut();
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
 
+                GoogleSignInClient mGoogleClient = GoogleSignIn.getClient(getBaseContext(),gso);
+
+                mGoogleClient.signOut();
+
+                startActivity(new Intent(this , MainActivity.class));
                 break;
 
         }

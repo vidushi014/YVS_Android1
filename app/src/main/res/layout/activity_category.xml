@@ -19,32 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/upwave" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/LogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#DD2C73"
-        android:backgroundTint="#E82473"
-        android:text="Logout"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cat_Grid" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/CommunityPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="#DD2C73"
         android:backgroundTint="#E82473"
-        android:text="Community"
         android:onClick="linktoCommunity"
+        android:text="Community"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cat_Grid" />
 

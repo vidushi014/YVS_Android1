@@ -34,7 +34,7 @@ public class category extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 //    our logout variable
-    Button logoutB;
+//    Button logoutB;
     public ProgressBar pgBar;
 
 //   our grid variable
@@ -50,8 +50,7 @@ public class category extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         catView = findViewById(R.id.cat_Grid);
-        logoutB = findViewById(R.id.LogOut);
-        logoutB.setBackgroundColor(R.color.pink);
+//        logoutB = findViewById(R.id.);
         pgBar = findViewById(R.id.progressBar2);
 
         loadCategory();
@@ -69,19 +68,19 @@ public class category extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        logoutB.setOnClickListener(view ->{
-            mAuth.signOut();
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build();
-
-            GoogleSignInClient mGoogleClient = GoogleSignIn.getClient(getBaseContext(),gso);
-
-            mGoogleClient.signOut();
-
-            startActivity(new Intent(category.this , MainActivity.class));
-        });
+//        logoutB.setOnClickListener(view ->{
+//            mAuth.signOut();
+//            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                    .requestIdToken(getString(R.string.default_web_client_id))
+//                    .requestEmail()
+//                    .build();
+//
+//            GoogleSignInClient mGoogleClient = GoogleSignIn.getClient(getBaseContext(),gso);
+//
+//            mGoogleClient.signOut();
+//
+//            startActivity(new Intent(category.this , MainActivity.class));
+//        });
 
 
     }
